@@ -103,9 +103,6 @@ treeinfo <- function(tree) {
 #' and its children branches.
 #'
 #' @examples
-#' Trinfo <- treeinfo(tree1)
-#' Ymat <- Ytree(Y = data1,
-#'              treeinf = Trinfo)
 #'
 #' @export
 
@@ -149,8 +146,6 @@ Ytree <- function(Y, treeinf) {
 #' at the an interior knot and its children branches.
 #'
 #' @example
-#' B <- matrix(NA, nrow = 15, ncol = 10)
-#' Bmat <- Btree(Ymat, B)
 #'
 #' @export
 Btree <- function(Ytree, B) {

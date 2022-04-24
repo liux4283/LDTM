@@ -16,27 +16,28 @@ knitr::opts_chunk$set(echo = TRUE)
 #                    "testthat", 
 #                    "usethis", 
 #                    "knitr"))
-
+library(tidyverse)
 library(testthat)
 library(usethis)
 library(devtools)
 ```
 
-
-
 ```{r}
 packageVersion("devtools")
+## to create a package
 # create_package("~/Desktop/bios7732/bios7732_package/LDTM")
 ```
 
 ```{r}
-
+## look for R home directory
 R.home()
-list.files()
+## look at the files in the same directory
+here::here() %>%
+  list.files()
 # list.dirs()
-list.dirs(path = ".",
-          full.names = FALSE,
-          recursive = FALSE)
+here::here() %>%
+  list.dirs(full.names = FALSE,
+            recursive = TRUE)
 ```
 
 RStudio has special handling for packages 
@@ -61,7 +62,79 @@ In the file browser, go to `More > Show Hidden Files` to toggle the visibility o
 
 - package.Rproj is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with create_package(..., rstudio = FALSE). 
 
+
 ```{r}
 use_git()
 ```
+
+
+```{r}
+## example for a function
+(x <- "alfa,bravo,charlie,delta")
+strsplit(x, split = ",")
+
+## This makes total sense in light of R’s 
+## fundamental tendency towards vectorization. 
+## But sometimes it’s still a bit of a bummer
+str(strsplit(x, split = ","))
+
+## The second, safer solution is the basis 
+## for the inaugural function
+strsplit1 <- function(x, split) {
+  strsplit(x, split = split)[[1]]
+}
+```
+
+
+Packages and scripts use different mechanisms to declare their dependency on other packages and to store example or test code.
+
+```{r}
+use_r("01_tree")
+use_r("02_likelihood")
+use_r("03_dirichlet")
+use_test("01_tree")
+use_test("02_likelihood")
+use_test("03_dirichlet")
+```
+
+
+If this were a regular R script, 
+we might use RStudio to send the function definition to
+the R Console and define strsplit1() in the global environment. 
+Or maybe we’d call source("R/strsplit1.R").
+
+```{r}
+load_all()
+exists("Ytree",
+       # where = globalenv(), 
+       inherits = FALSE)
+#> [1] FALSE
+
+# ?exists Environment Access
+env <- environment(Ytree)
+exists("Btree", 
+       where = env,
+       # where = globalenv(), 
+       inherits = FALSE)
+
+```
+
+
+This may seem silly to check, after such a small addition, but it’s good to establish the habit of checking this often.
+
+```{r}
+check()
+```
+
+
+
+
+
+
+
+
+
+
+
+
 

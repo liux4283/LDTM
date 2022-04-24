@@ -22,11 +22,13 @@ plot(tree1, edge.width = 2)
 data <- here::here("data", "toy_data.csv") %>%
   read.csv(row.names = 1)
 data1 <- data %>%
-  select(ID, visit, species, y) %>%
+  dplyr::select(ID, visit, species, y) %>%
   pivot_wider(names_from = species,
               values_from = y) %>%
   unite("id_time", c(ID, visit), sep = "_") %>%
   column_to_rownames("id_time")
+
+# write.csv(data1, file = "/Users/goodgolden5/Desktop/bios7732/bios7732_package/LDTM/toy1.csv")
 ```
 
 ```{r}

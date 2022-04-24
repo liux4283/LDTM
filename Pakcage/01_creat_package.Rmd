@@ -1,0 +1,67 @@
+---
+title: "01_creat_package"
+author: "randy"
+date: '2022-04-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# install.packages(c("devtools", 
+#                    "roxygen2", 
+#                    "testthat", 
+#                    "usethis", 
+#                    "knitr"))
+
+library(testthat)
+library(usethis)
+library(devtools)
+```
+
+
+
+```{r}
+packageVersion("devtools")
+# create_package("~/Desktop/bios7732/bios7732_package/LDTM")
+```
+
+```{r}
+
+R.home()
+list.files()
+# list.dirs()
+list.dirs(path = ".",
+          full.names = FALSE,
+          recursive = FALSE)
+```
+
+RStudio has special handling for packages 
+and you should now see a **Build** tab 
+in the same pane as Environment and History.
+
+
+In the file browser, go to `More > Show Hidden Files` to toggle the visibility of hidden files (a.k.a. “dotfiles”). A select few are visible all the time, but sometimes you want to see them all.
+
+- .Rbuildignore lists files that we need to have around but that should not be included when building the R package from source.
+
+
+- .Rproj.user, if you have it, is a directory used internally by RStudio.
+
+- .gitignore anticipates Git usage and ignores some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.
+
+- DESCRIPTION provides metadata about your package. We edit this shortly.
+
+- NAMESPACE declares the functions your package exports for external use and the external functions your package imports from other packages. At this point, it is empty, except for a comment declaring that this is a file we will not edit by hand.
+
+- The R/ directory is the “business end” of your package. It will soon contain .R files with function definitions.
+
+- package.Rproj is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with create_package(..., rstudio = FALSE). 
+
+```{r}
+use_git()
+```
+

@@ -1,0 +1,60 @@
+---
+title: "01_toy"
+author: "randy"
+date: '2022-04-22'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ape)
+library(caper)
+
+tree1 <- read.tree(text = "((A, B), (C, D));")
+plot(tree1, edge.width = 2)
+```
+
+```{r}
+data <- here::here("data", "toy_data.csv") %>%
+  read.csv(row.names = 1)
+data1 <- data %>%
+  select(ID, visit, species, y) %>%
+  pivot_wider(names_from = species,
+              values_from = y) %>%
+  unite("id_time", c(ID, visit), sep = "_") %>%
+  column_to_rownames("id_time")
+```
+
+```{r}
+Trinfo <- treeinfo(tree1)
+str(Trinfo)
+
+## change the data into cluster
+## each matrix contain the interior knot
+## as well as its children
+Ymat <- Ytree(Y = data1, 
+              treeinf = Trinfo)
+Ymat
+```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

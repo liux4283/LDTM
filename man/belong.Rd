@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_tree.R
 \name{belong}
 \alias{belong}
-\title{Provide each elements from setB belongs to set membership of setA}
+\title{Title: Provide each elements from setB belongs to set membership of setA}
 \usage{
 belong(setA, subB)
 }
@@ -22,6 +22,7 @@ the length of this list is the same as subB
 (TBF)
 }
 \examples{
+library(tidyverse)
 B <- c(2, 3, 4)
 A <- 3:10
 belong(setA = A, subB = B)

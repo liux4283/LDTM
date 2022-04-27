@@ -1,5 +1,16 @@
 
 # 2.1 Loglikehood {{{------------
+#' Title: Likelihood function for Dirichlet and Multinomial models
+#'
+#' @param Y
+#' @param X
+#' @param b
+#' @param model
+#'
+#' @return
+#' @export
+#'
+#'
 Loglik <- function(Y, X, b, model) {
   # Compute the log likelihood, constant part discarded
   # The likelihood is scaled. Be careful when computing AIC BIC
@@ -24,9 +35,17 @@ Loglik <- function(Y, X, b, model) {
 
 
 
-
-
 # 2.2 Score {{{--------------
+#' Title Score function for Dirichlet and Multinomial models
+#'
+#' @param Y
+#' @param X
+#' @param b
+#' @param model
+#'
+#' @return
+#' @export
+#'
 Score <- function(Y, X, b, model) {
   # Compute the Score function at b
   X <- as.matrix(X)
@@ -57,6 +76,16 @@ Score <- function(Y, X, b, model) {
 
 
 # 2.3 Hessian {{{-----------------
+#' Title Hessian matrix for Dirichlet and Multinomial models
+#'
+#' @param Y
+#' @param X
+#' @param b
+#' @param model
+#'
+#' @return
+#' @export
+#'
 Hessian <- function(Y, X, b, model){
   #	Compute the diagonal of the hessian matrix at b
 

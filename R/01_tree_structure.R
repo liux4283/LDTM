@@ -1,5 +1,5 @@
 # 1.1 belong {{{---------
-#' Provide each elements from setB belongs to set membership of setA
+#' Title: Provide each elements from setB belongs to set membership of setA
 #' @description `belong` provides whether each element of setB belong to setA
 #'
 #' @details
@@ -12,14 +12,15 @@
 #' the length of this list is the same as subB
 #'
 #' @examples
+#' library(tidyverse)
 #' B <- c(2, 3, 4)
 #' A <- 3:10
 #' belong(setA = A, subB = B)
 #' @export
 
 belong <- function(setA, subB) {
-  logic <- map(subB, ~is.element(., setA)) %>%
-    unlist()
+
+  logic <- unlist(purrr::map(subB, ~is.element(., setA)))
 
   return(logic = logic)
 }
@@ -28,7 +29,7 @@ belong <- function(setA, subB) {
 
 
 # 1.2 treeinfo {{{---------
-#' Extract Structural Information from a Phylo Tree
+#' Title: Extract Structural Information from a Phylo Tree
 #'
 #' @description `treeinfo()` provides the basic information from a phylo tree
 #' without extract the distance.
@@ -49,14 +50,6 @@ belong <- function(setA, subB) {
 #' the binary value of each taxa (by row) belongs to
 #' a given leaf or inner node (by col).
 #'
-#' @examples
-#' library(ape)
-#' library(caper)
-#' tree <- rtree(n = 10)
-#' plot(tree, edge.width = 2)
-#'
-#' treeinfo(tree)
-#'
 #' @export
 
 treeinfo <- function(tree) {
@@ -70,7 +63,7 @@ treeinfo <- function(tree) {
   ## if the Ntips belongs to Nodetips
   ## return TRUE, otherwise FALSE;
   ## then locate at correct position in the matrix
-  TreeMat <- map_dfr(Nodetips, belong, 1:Ntips)
+  TreeMat <- purrr::map_dfr(Nodetips, belong, 1:Ntips)
 
   return(treeinfo = list(Nnodes = Nnodes,
                          Ntips = Ntips,
@@ -84,8 +77,7 @@ treeinfo <- function(tree) {
 
 
 # 1.3 Ytree {{{-------------
-
-#' Create the Outcomes for Each Interior Knots from the Tree
+#' Title: Create the Outcomes for Each Interior Knots from the Tree
 #'
 #' @description The Dirichlet Multinational Tree model requires the
 #' outcomes at each interior knots. The original taxa outcomes will not be applied directly
@@ -102,7 +94,6 @@ treeinfo <- function(tree) {
 #' @return A set of n * 2 matrices, each of which represent the an interior knot
 #' and its children branches.
 #'
-#' @examples
 #'
 #' @export
 
@@ -129,7 +120,7 @@ Ytree <- function(Y, treeinf) {
 
 
 # 1.4 Btree {{{-------------
-#' Create the Coefficients for Each Interior Knots Matrix
+#' Title: Create the Coefficients for Each Interior Knots Matrix
 #'
 #' @description The Dirichlet Multinational Tree model requires the
 #' outcomes at each interior knots. We need to change a list of coefficients
@@ -144,8 +135,6 @@ Ytree <- function(Y, treeinf) {
 #'
 #' @return A set of n * 2 matrices, each of which represent the covariate coefficients
 #' at the an interior knot and its children branches.
-#'
-#' @example
 #'
 #' @export
 Btree <- function(Ytree, B) {

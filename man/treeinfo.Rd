@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_tree.R
 \name{treeinfo}
 \alias{treeinfo}
-\title{Extract Structural Information from a Phylo Tree}
+\title{Title: Extract Structural Information from a Phylo Tree}
 \usage{
 treeinfo(tree)
 }
@@ -28,13 +28,4 @@ without extract the distance.
 }
 \details{
 This is adapted from \link{Tao Wang and Hongyu Zhao (2017)}
-}
-\examples{
-library(ape)
-library(caper)
-tree <- rtree(n = 10)
-plot(tree, edge.width = 2)
-
-treeinfo(tree)
-
 }

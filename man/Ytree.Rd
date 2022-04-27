@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_tree.R
 \name{Ytree}
 \alias{Ytree}
-\title{Create the Outcomes for Each Interior Knots from the Tree}
+\title{Title: Create the Outcomes for Each Interior Knots from the Tree}
 \usage{
 Ytree(Y, treeinf)
 }
@@ -24,10 +24,4 @@ above is for each interior knot and its children. The information from
 }
 \details{
 This is adapted from \link{Tao Wang and Hongyu Zhao (2017)}
-}
-\examples{
-Trinfo <- treeinfo(tree1)
-Ymat <- Ytree(Y = data1,
-             treeinf = Trinfo)
-
 }

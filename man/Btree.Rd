@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_tree.R
 \name{Btree}
 \alias{Btree}
-\title{Create the Coefficients for Each Interior Knots Matrix}
+\title{Title: Create the Coefficients for Each Interior Knots Matrix}
 \usage{
 Btree(Ytree, B)
 }

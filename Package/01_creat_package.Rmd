@@ -26,6 +26,7 @@ library(devtools)
 packageVersion("devtools")
 ## to create a package
 # create_package("~/Desktop/bios7732/bios7732_package/LDTM")
+use_mit_license()
 ```
 
 ```{r}
@@ -35,9 +36,9 @@ R.home()
 here::here() %>%
   list.files()
 # list.dirs()
-here::here() %>%
-  list.dirs(full.names = FALSE,
-            recursive = TRUE)
+# here::here() %>%
+#   list.dirs(full.names = FALSE,
+#             recursive = TRUE)
 ```
 
 RStudio has special handling for packages 
@@ -92,6 +93,7 @@ Packages and scripts use different mechanisms to declare their dependency on oth
 use_r("01_tree")
 use_r("02_likelihood")
 use_r("03_dirichlet")
+use_r("data")
 use_test("01_tree")
 use_test("02_likelihood")
 use_test("03_dirichlet")
@@ -125,6 +127,109 @@ This may seem silly to check, after such a small addition, but it’s good to es
 ```{r}
 check()
 ```
+
+## 2.10 Edit DESCRIPTION
+
+Use `Ctrl + .` in RStudio and start typing “DESCRIPTION” to activate a helper that makes it easy to open a file for editing. 
+
+In addition to a filename, your hint can be a function name. 
+
+This is very handy once a package has lots of files.
+
+
+## 2.12 document()
+
+
+```{r}
+document()
+?Ytree
+?Score
+check()
+```
+
+The export directive in NAMESPACE is what makes a `function` available to a user after attaching via `library`. 
+
+Just as it is entirely possible to author .Rd files "by hand", you can manage NAMESPACE explicitly yourself.
+
+
+```{r}
+install()
+```
+
+Note also that your package’s documentation won’t be properly wired up until it has been formally built and installed. This polishes off niceties like the links between help files and the creation of a package index.
+
+RStudio exposes similar functionality in the Build menu and in the Build pane via Install and Restart.
+
+
+```{r}
+library(LDTM)
+use_testthat()
+use_test("04_toy_example")
+
+load_all()
+# test_that("strsplit1() splits a string", {
+#   expect_equal(strsplit1("a,b,c", split = ","), c("a", "b", "c"))
+# })
+```
+
+**Cmd + Shift + T (macOS)** for test
+
+It is a good idea to use the `covr` package to track 
+what proportion of your package’s source code is exercised by the tests.
+
+```{r}
+install.packages("covr")
+library("covr")
+
+report()
+test()
+```
+
+
+```{r}
+# rename_files("treeY", "01_tree_structure")
+```
+
+
+```{r}
+use_github()
+```
+
+
+- `use_github()` is a helper that we recommend for the long-term. We won’t demonstrate it here because it requires some credential setup on your end. We also don’t want to tear down and rebuild the public regexcite package every time we build this book.
+
+- set up the GitHub repo first! It sounds counter-intuitive, but the easiest way to get your work onto GitHub is to initiate there, then use RStudio to start working in a synced local copy. This approach is described in Happy Git’s workflows New project, GitHub first and Existing project, GitHub first.
+
+- command line Git can always be used to add a remote repository post hoc. This is described in the Happy Git workflow Existing project, GitHub last.
+
+
+```{r}
+use_readme_rmd()
+data("toy_data")
+build_readme()
+```
+
+
+
+
+```{r}
+usethis::use_data(toy_data0,
+                  toy_data1, 
+                  internal = TRUE,
+                  overwrite = TRUE)
+
+```
+
+
+
+
+```{r}
+usethis::use_git_remote("origin", url = NULL, 
+                        overwrite = TRUE)
+```
+
+
+
 
 
 

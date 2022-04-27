@@ -43,9 +43,18 @@ Ymat <- Ytree(Y = data1,
 Ymat
 ```
 
+## `use_package()`
 
 ```{r}
-
+use_package("tidyverse", type = "depends")
+use_package("purrr")
+use_package("dplyr")
+use_package("tidyr")
+use_package("readr")
+use_package("purrr")
+use_package("tibble")
+use_package("stringr")
+use_package("forcats")
 ```
 
 

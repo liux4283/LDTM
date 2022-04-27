@@ -415,9 +415,9 @@ as a linear combination of the covariates.
 ")
 
 ![
-l\_{DTM}(\\beta) = \\log L\_{DTM}(\\beta) = \\sum\_{v \\in \\mathcal V} \\log L_v(\\beta_v) \\ \\ \\ \\ (3.a)
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0Al_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Clog%20L_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Clog%20L_v%28%5Cbeta_v%29%20%5C%20%5C%20%5C%20%5C%20%283.a%29%0A "
-l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) \ \ \ \ (3.a)
+l\_{DTM}(\\beta) = \\log L\_{DTM}(\\beta) = \\sum\_{v \\in \\mathcal V} \\log L_v(\\beta_v) 
+](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0Al_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Clog%20L_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Clog%20L_v%28%5Cbeta_v%29%20%0A "
+l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) 
 ")
 
 ![
@@ -502,22 +502,22 @@ at
 
 ![
 \\begin{split}
-& - \\tilde l\_{DTM}(\\beta; \\eta^{(t)}) = -l\_{DTM}(\\eta^{(t)}) - \\langle\\beta - \\eta^{(t)}, \\nabla l\_{DTM} (\\eta^{(t)})\\rangle + \\frac {C} {2} \\\|\\beta - \\eta^{(t)}\\\|^2_2 \\ \\ \\ \\ (4)\\\\
+& - \\tilde l\_{DTM}(\\beta; \\eta^{(t)}) = -l\_{DTM}(\\eta^{(t)}) - \\langle\\beta - \\eta^{(t)}, \\nabla l\_{DTM} (\\eta^{(t)})\\rangle + \\frac {C} {2} \\\|\\beta - \\eta^{(t)}\\\|^2_2 \\\\
 & pn \\tilde{l}\_{DMT}(\\beta) = - \\tilde l\_{DTM} (\\beta; \\eta^{(t)}) + \\lambda_1
 \\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{1}
- + \\lambda_2\\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{2} \\ \\ \\ \\ (5)\\\\
-& \\beta^{(t+1)} = \\underset {\\beta} {arg min}  \\big(pn \\tilde{l}\_{DTM} (\\beta)\\big) \\ \\ \\ \\ (6)\\\\
-& \\eta^{(t+1)} = \\beta^{(t+1)} + \\frac {1-\\alpha_t} {\\alpha_t} \\alpha\_{t+1} (\\beta^{(t+1)} - \\beta^{(t)}) \\ \\ \\ \\ (7)\\\\
+ + \\lambda_2\\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{2} \\\\
+& \\beta^{(t+1)} = \\underset {\\beta} {arg min}  \\big(pn \\tilde{l}\_{DTM} (\\beta)\\big) \\\\
+& \\eta^{(t+1)} = \\beta^{(t+1)} + \\frac {1-\\alpha_t} {\\alpha_t} \\alpha\_{t+1} (\\beta^{(t+1)} - \\beta^{(t)}) \\\\
 & \\alpha_t = 2/(t+2)
 \\end{split}
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20-%20%5Ctilde%20l_%7BDTM%7D%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%3D%20-l_%7BDTM%7D%28%5Ceta%5E%7B%28t%29%7D%29%20-%20%5Clangle%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%2C%20%5Cnabla%20l_%7BDTM%7D%20%28%5Ceta%5E%7B%28t%29%7D%29%5Crangle%20%2B%20%5Cfrac%20%7BC%7D%20%7B2%7D%20%5C%7C%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%5C%7C%5E2_2%20%5C%20%5C%20%5C%20%5C%20%284%29%5C%5C%0A%26%20pn%20%5Ctilde%7Bl%7D_%7BDMT%7D%28%5Cbeta%29%20%3D%20-%20%5Ctilde%20l_%7BDTM%7D%20%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%2B%20%5Clambda_1%0A%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B1%7D%0A%20%2B%20%5Clambda_2%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B2%7D%20%5C%20%5C%20%5C%20%5C%20%285%29%5C%5C%0A%26%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta%7D%20%7Barg%20min%7D%20%20%5Cbig%28pn%20%5Ctilde%7Bl%7D_%7BDTM%7D%20%28%5Cbeta%29%5Cbig%29%20%5C%20%5C%20%5C%20%5C%20%286%29%5C%5C%0A%26%20%5Ceta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%2B%20%5Cfrac%20%7B1-%5Calpha_t%7D%20%7B%5Calpha_t%7D%20%5Calpha_%7Bt%2B1%7D%20%28%5Cbeta%5E%7B%28t%2B1%29%7D%20-%20%5Cbeta%5E%7B%28t%29%7D%29%20%5C%20%5C%20%5C%20%5C%20%287%29%5C%5C%0A%26%20%5Calpha_t%20%3D%202%2F%28t%2B2%29%0A%5Cend%7Bsplit%7D%0A "
+](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20-%20%5Ctilde%20l_%7BDTM%7D%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%3D%20-l_%7BDTM%7D%28%5Ceta%5E%7B%28t%29%7D%29%20-%20%5Clangle%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%2C%20%5Cnabla%20l_%7BDTM%7D%20%28%5Ceta%5E%7B%28t%29%7D%29%5Crangle%20%2B%20%5Cfrac%20%7BC%7D%20%7B2%7D%20%5C%7C%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%5C%7C%5E2_2%20%5C%5C%0A%26%20pn%20%5Ctilde%7Bl%7D_%7BDMT%7D%28%5Cbeta%29%20%3D%20-%20%5Ctilde%20l_%7BDTM%7D%20%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%2B%20%5Clambda_1%0A%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B1%7D%0A%20%2B%20%5Clambda_2%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B2%7D%20%5C%5C%0A%26%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta%7D%20%7Barg%20min%7D%20%20%5Cbig%28pn%20%5Ctilde%7Bl%7D_%7BDTM%7D%20%28%5Cbeta%29%5Cbig%29%20%5C%5C%0A%26%20%5Ceta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%2B%20%5Cfrac%20%7B1-%5Calpha_t%7D%20%7B%5Calpha_t%7D%20%5Calpha_%7Bt%2B1%7D%20%28%5Cbeta%5E%7B%28t%2B1%29%7D%20-%20%5Cbeta%5E%7B%28t%29%7D%29%20%5C%5C%0A%26%20%5Calpha_t%20%3D%202%2F%28t%2B2%29%0A%5Cend%7Bsplit%7D%0A "
 \begin{split}
-& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \ \ \ \ (4)\\
+& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \\
 & pn \tilde{l}_{DMT}(\beta) = - \tilde l_{DTM} (\beta; \eta^{(t)}) + \lambda_1
 \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{1}
- + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \ \ \ \ (5)\\
-& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \ \ \ \ (6)\\
-& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \ \ \ \ (7)\\
+ + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \\
+& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \\
+& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \\
 & \alpha_t = 2/(t+2)
 \end{split}
 ")
@@ -536,9 +536,9 @@ at
 \\Bigg\]\\\\
 & \\tilde \\beta\_{vc}^{(t+1)}  = sgn \\bigg\\{ \\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc} (\\eta\_{vc}^{(t)})\\bigg\\} \\ \\max \\bigg\\{0, \\Big\|\\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc}(\\eta_v^{(t)}) \\Big\| - \\frac {\\lambda_1} {C}\\bigg\\}\\\\
 & \\beta\_{vc}^{(t+1)}  = \\frac {\\tilde \\beta\_{vc}^{(t+1)}}{\\\|\\tilde \\beta\_{vc}^{(t+1)}\\\|\_2}
-\\max \\bigg\\{0, \\Big\\\|\\tilde \\beta\_{vc}^{(t+1)} \\Big\\\|\_2 - \\frac {\\lambda_1} {C}\\bigg\\} \\ \\ \\ \\ (8)
+\\max \\bigg\\{0, \\Big\\\|\\tilde \\beta\_{vc}^{(t+1)} \\Big\\\|\_2 - \\frac {\\lambda_1} {C}\\bigg\\} 
 \\end{split}
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%0A%5Cbigg%20%5C%7C%0A%5Cbeta_%7Bvc%7D%20-%20%5CBig%5C%7B%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%5C%7D%0A%5Cbigg%5C%7C_2%5E2%20%2B%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Clambda_2%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%0A%5CBigg%5D%5C%5C%0A%20%26%20%5Ctext%20%7Bs.t.%7D%20%5C%20%5C%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%0A%5Cbigg%20%5C%7C%0A%5Cbeta_%7Bvc%7D%20%2B%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%280%29%0A%5Cbigg%5C%7C_2%5E2%20%2B%20%5Clambda%20%5Cbigg%28%5Cfrac%20%7B1-%5Cgamma%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Cgamma%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%5Cbigg%29%0A%5CBigg%5D%5C%5C%0A%26%20%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20sgn%20%5Cbigg%5C%7B%20%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%29%5Cbigg%5C%7D%20%5C%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%7C%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%7C%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%5C%5C%0A%26%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cfrac%20%7B%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%7D%7B%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%5C%7C_2%7D%0A%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%5CBig%5C%7C_2%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%20%5C%20%5C%20%5C%20%5C%20%288%29%0A%5Cend%7Bsplit%7D%0A "
+](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%0A%5Cbigg%20%5C%7C%0A%5Cbeta_%7Bvc%7D%20-%20%5CBig%5C%7B%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%5C%7D%0A%5Cbigg%5C%7C_2%5E2%20%2B%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Clambda_2%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%0A%5CBigg%5D%5C%5C%0A%20%26%20%5Ctext%20%7Bs.t.%7D%20%5C%20%5C%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%0A%5Cbigg%20%5C%7C%0A%5Cbeta_%7Bvc%7D%20%2B%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%280%29%0A%5Cbigg%5C%7C_2%5E2%20%2B%20%5Clambda%20%5Cbigg%28%5Cfrac%20%7B1-%5Cgamma%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Cgamma%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%5Cbigg%29%0A%5CBigg%5D%5C%5C%0A%26%20%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20sgn%20%5Cbigg%5C%7B%20%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%29%5Cbigg%5C%7D%20%5C%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%7C%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%7C%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%5C%5C%0A%26%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%20%3D%20%5Cfrac%20%7B%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%7D%7B%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%5C%7C_2%7D%0A%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%5CBig%5C%7C_2%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%20%0A%5Cend%7Bsplit%7D%0A "
 \begin{split}
 & \beta_{vc}^{(t+1)}  = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2
 \bigg \|
@@ -552,6 +552,6 @@ at
 \Bigg]\\
 & \tilde \beta_{vc}^{(t+1)}  = sgn \bigg\{ \eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_{vc}^{(t)})\bigg\} \ \max \bigg\{0, \Big|\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc}(\eta_v^{(t)}) \Big| - \frac {\lambda_1} {C}\bigg\}\\
 & \beta_{vc}^{(t+1)}  = \frac {\tilde \beta_{vc}^{(t+1)}}{\|\tilde \beta_{vc}^{(t+1)}\|_2}
-\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} \ \ \ \ (8)
+\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} 
 \end{split}
 ")

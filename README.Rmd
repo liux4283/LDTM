@@ -288,7 +288,7 @@ $$
 
 
 $$
-l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) \ \ \ \ (3.a)
+l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) 
 $$
 
 $$
@@ -345,12 +345,12 @@ approximate $l_{DTM} (\beta)$ at $\beta^{(t)}$
 
 $$
 \begin{split}
-& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \ \ \ \ (4)\\
+& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \\
 & pn \tilde{l}_{DMT}(\beta) = - \tilde l_{DTM} (\beta; \eta^{(t)}) + \lambda_1
 \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{1}
- + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \ \ \ \ (5)\\
-& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \ \ \ \ (6)\\
-& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \ \ \ \ (7)\\
+ + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \\
+& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \\
+& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \\
 & \alpha_t = 2/(t+2)
 \end{split}
 $$
@@ -369,7 +369,7 @@ $$
 \Bigg]\\
 & \tilde \beta_{vc}^{(t+1)}  = sgn \bigg\{ \eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_{vc}^{(t)})\bigg\} \ \max \bigg\{0, \Big|\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc}(\eta_v^{(t)}) \Big| - \frac {\lambda_1} {C}\bigg\}\\
 & \beta_{vc}^{(t+1)}  = \frac {\tilde \beta_{vc}^{(t+1)}}{\|\tilde \beta_{vc}^{(t+1)}\|_2}
-\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} \ \ \ \ (8)
+\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} 
 \end{split}
 $$
 

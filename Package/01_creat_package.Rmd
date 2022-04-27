@@ -196,7 +196,7 @@ use_github()
 ```
 
 
-- `use_github()` is a helper that we recommend for the long-term. We won’t demonstrate it here because it requires some credential setup on your end. We also don’t want to tear down and rebuild the public regexcite package every time we build this book.
+- `use_github()` is a helper that we recommend for the long-term. We won’t demonstrate it here because it requires some credential setup on your end. We also don’t want to tear down and rebuild the public package every time we build this book.
 
 - set up the GitHub repo first! It sounds counter-intuitive, but the easiest way to get your work onto GitHub is to initiate there, then use RStudio to start working in a synced local copy. This approach is described in Happy Git’s workflows New project, GitHub first and Existing project, GitHub first.
 
@@ -204,8 +204,7 @@ use_github()
 
 
 ```{r}
-use_readme_rmd()
-data("toy_data")
+# use_readme_rmd()
 build_readme()
 ```
 
@@ -224,11 +223,15 @@ usethis::use_data(toy_data0,
 
 
 ```{r}
-usethis::use_git_remote("origin", url = NULL, 
+usethis::use_git_remote("origin", 
+                        url = NULL, 
                         overwrite = TRUE)
 ```
 
 
+```{r}
+check()
+```
 
 
 

@@ -1,5 +1,9 @@
 ---
-output: github_document
+author: "Randy"
+date: "27 April 2022"
+output:
+  github_document:
+    pandoc_args: --webtex=https://latex.codecogs.com/png.latex?
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,7 +20,6 @@ knitr::opts_chunk$set(
 # LDTM
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of LDTM is to ...
@@ -39,6 +42,7 @@ library(LDTM)
 ## basic example code
 ```
 
+
 <!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>. -->
 
 ## Introduction
@@ -51,7 +55,10 @@ partition sequences into discrete groups instead of traditional taxonomic units.
 
 the most abundant sequence in an OTU is the representative sequence
 
+
 representative sequences from all the OTUs are used to construct a phylogenetic tree among all the OTUs
+
+
 
 Microbial community information == OTUs + counts + phylogenetic relationship + taxonomy
 
@@ -59,28 +66,30 @@ Microbial community information == OTUs + counts + phylogenetic relationship + t
 
 the effect of diet on gut microbiome composition
 
--   gut microbiome data
--   nutrient intake data
+- gut microbiome data
+- nutrient intake data
 
 ### distance based analysis
 
--   identify a few gut microbiome associated nutrients
+- identify a few gut microbiome associated nutrients 
 
--   unable to provide information on how dietary nutrient affect bacterial taxa
+- unable to provide information on how dietary nutrient affect bacterial taxa
 
 ## Goal
 
 identify both the key nutrients as well as the taxa the nutrient affect
 
-Chen and Li (2013) adopted a regression-based approach
+Chen and Li (2013) adopted a regression-based approach 
 
 OTU abundance data as multivariate count responses, and nutrient as covaraite
+
 
 ## Model
 
 ### Multinomial logistic regression
 
-$
+
+\begin{math}
 \begin{split}
 & Y = (Y_1, ..., Y_K)^T\\
 & y = (y_1, ..., y_K)^T\\
@@ -89,7 +98,9 @@ $
 & f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} 
 {\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}\\
 \end{split}
-$
+\end{math}
+
+
 
 The link function is a multinomial-Poisson transformation
 
@@ -97,21 +108,21 @@ The link function is a multinomial-Poisson transformation
 
 #### Overdisperson
 
--   the multinomial distribution is not appropriate
+- the multinomial distribution is not appropriate
 
--   $p$ is a random variable with some prior distribution
+- $p$ is a random variable with some prior distribution
 
--   $\Phi^d$ is a (d-1) dimensional simplex,
+- $\Phi^d$ is a (d-1) dimensional simplex, 
 
-the support of p is $\Phi^{K-1}$
+the support of p is $\Phi^{K-1}$ 
 
--   Dirichlet distribution density at $u = (u_1, ..., u_K) \in \Phi^{K-1}$
+- Dirichlet distribution density at $u = (u_1, ..., u_K) \in \Phi^{K-1}$
 
--   Dirichlet is a conjugate prior to multinomial distribution
+- Dirichlet is a conjugate prior to multinomial distribution
 
--   posterior is Dirichlet multionmial distribution, aka the Dirichlet compound multinomial distribution.
+- posterior is Dirichlet multionmial distribution, aka the Dirichlet compound multinomial distribution.
 
-$
+$$
 \begin{split}
 & a = (a_1, ..., a_K)^T,\ a_i > 0\\
 & f_D (u;a) = \frac {\Gamma ({\sum_{k=1}^K \alpha_k})} 
@@ -123,106 +134,111 @@ $
 \prod_{k=1}^K \frac {\Gamma (y_k + \alpha_k)} 
 {\Gamma ({y_k + 1}) \Gamma ({\alpha_k})}
 \end{split} 
-$
+$$
 
 #### Limitation
 
--   all componnets must share a common variance parameter
+- all componnets must share a common variance parameter
 
--   components are mutually independent, up to the constraint that must sum up to 1
+- components are mutually independent, up to the constraint that must sum up to 1
 
--   distribution fails to take into account the special and inherent property of microbiome count data (evolutionary relationships in the phylogenetic tree)
+- distribution fails to take into account the special and inherent property of microbiome count data (evolutionary relationships in the phylogenetic tree)
+
 
 #### Generalization of Dirichlet Multinomial distribution
 
--   the relationships among the components of the count vector can be represented as a tree, node-by-node.
+- the relationships among the components of the count vector  can be represented as a tree, node-by-node.
 
-    -   each component has a independent variance
+  - each component has a independent variance
+  
+  - components are correlated at subtree levels
 
-    -   components are correlated at subtree levels
+- a regression model with the effects of covariates
+- a regularized methods for selecting covarites (nutrients) that are associated with the count responses (OTUs)
 
--   a regression model with the effects of covariates
 
--   a regularized methods for selecting covarites (nutrients) that are associated with the count responses (OTUs)
+#### Logistic Normal Multinomial distribution 
 
-#### Logistic Normal Multinomial distribution
+- Billheimer with Aitchison's logistic normal distribution instead of Dirichlet
 
--   Billheimer with Aitchison's logistic normal distribution instead of Dirichlet
+  - covaraites to the count vector (Billheimer et al. 2001) 
+  - link dietary nutrients with bacteria counts (Xia et al. 2013)
 
-    -   covaraites to the count vector (Billheimer et al. 2001)
-    -   link dietary nutrients with bacteria counts (Xia et al. 2013)
+cannot exploit the tree structure information, 
+logistic normal multinomial does not have a closed-form expression.
 
-cannot exploit the tree structure information, logistic normal multinomial does not have a closed-form expression.
+
 
 ### Dirichlet-Tree Multinomial Distributions
 
 total number of counts, determined by the sequence depth, as an ancillary statistics
 
--   analyssi conditioning on this number
+- analyssi conditioning on this number
 
 A Tree $T$ representing the hierarchical structure over the count responses
 
--   we will incorperate the tree structural information into the modeling
+- we will incorperate the tree structural information into the modeling
 
--   $\mathcal L$ the set of leaf nodes
 
--   $\mathcal V$ the set of internal nodes of $T$
+- $\mathcal L$ the set of leaf nodes
+- $\mathcal V$ the set of internal nodes of $T$
 
--   for each $v \in \mathcal V$, $\mathcal C_v$ the child nodes of $v$
+- for each $v \in \mathcal V$, $\mathcal C_v$ the child nodes of $v$
 
--   for each $v$ and $c \in \mathcal C_v$, $\delta_{vc} (l) = 1(v\rightarrow c, l \in \mathcal L)$
+- for each $v$ and $c \in \mathcal C_v$, $\delta_{vc} (l) = 1(v\rightarrow c, l \in \mathcal L)$
 
--   $\mathcal L = \{ 1, ..., K\}$
+- $\mathcal L = \{ 1, ..., K\}$
+- $y_{vc} = \sum_{l\in\mathcal L} \delta_{vc} (l) \ y_l$
 
--   $y_{vc} = \sum_{l\in\mathcal L} \delta_{vc} (l) \ y_l$
+- $p_{vc} = \sum_{l\in \mathcal L} \delta_{vc} (l) \ p_l$
 
--   $p_{vc} = \sum_{l\in \mathcal L} \delta_{vc} (l) \ p_l$
+- $c \in \mathcal C_v$ is the index for the subtree counts and probabilities
 
--   $c \in \mathcal C_v$ is the index for the subtree counts and probabilities
+##
 
-## 
+- Let $v_0$ to be the root node of $T$.
 
--   Let $v_0$ to be the root node of $T$.
+- each leaf node is $(v_0 \equiv v_0^l )\rightarrow v_1^l \rightarrow ... \rightarrow v_{D_l -1}^l \rightarrow  (v_{D_l}^l \equiv l)$
 
--   each leaf node is $(v_0 \equiv v_0^l )\rightarrow v_1^l \rightarrow ... \rightarrow v_{D_l -1}^l \rightarrow (v_{D_l}^l \equiv l)$
-
-    -   the path from $v_0$ to $l$, where $v_d^l \in \mathcal V, \forall d = 0, ..., D_{l-1}$
-    -   $D_l \geq 1$ is the inner branches in this path
-    -   $b_{vc} = \frac {p_{vc}} {\sum_{S \in \mathcal C_v} p_{vS}}$, with the $\sum_{c \in \mathcal C_v} b_{vc} = 1$ that each branch as a probability (**a conditional probability given we know where the branch started**).
-
-$
+  - the path from $v_0$ to $l$, where $v_d^l \in \mathcal V, \forall d = 0, ..., D_{l-1}$ 
+  - $D_l \geq 1$ is the inner branches in this path
+  - $b_{vc} = \frac {p_{vc}} {\sum_{S \in \mathcal C_v} p_{vS}}$, with the $\sum_{c \in \mathcal C_v} b_{vc} = 1$ that each branch as a probability (**a conditional probability given we know where the branch started**).
+  
+  
+$$
 p_{l} = b_{v_0 v_1^l} \times b_{v_1^l v_2^l} \times ... \times 
 b_{v_{D_l - 1}^l} = \prod_{v\in \mathcal V} \prod_{c \in \mathcal C} b_{vc}^{\delta^{vc}(l)}
-$
+$$
 
--   for $p_l$ is the product of branch probabilities from root $v_0$ to final leaf $l$
+
+- for $p_l$ is the product of branch probabilities from root $v_0$ to final leaf $l$
 
 **this is for the leaf level**
 
-$
+$$
 f_M(y; p) = f_M(y; b_v, v\in \mathcal V) = \prod_{v \in \mathcal V}
 \frac {\Gamma (\sum_{c \in \mathcal C_v} y_{vc} + 1)} 
 {\prod_{c \in \mathcal C_v} \Gamma ({y_{vc} + 1})} \prod_{c \in \mathcal C_v} b_{vc}^{y_vc}
-$
+$$
 
 $b_v = \{b_{vc}, c\in \mathcal C_v\}$
 
 **this is for the internal nodes** $b_v, v \in \mathcal V$ the joint density of $(b_v, v \in \mathcal V)$ has the form of:
 
-$
+$$
 f_{DT} (u_v; \alpha_v) = \prod_{v\in \mathcal V} f_D(u_v; \alpha_v) = 
 \prod_{v \in \mathcal V}
 \frac {\Gamma (\sum_{c \in \mathcal C_v} \alpha_{vc})} 
 {\prod_{c \in \mathcal C_v} \Gamma ({\alpha_{vc}})} \prod_{c \in \mathcal C_v} u_{vc}^{\alpha_vc - 1}
-$
+$$
 
--   $u_v = (u_{vc}, c\in \mathcal C_v) \in \Phi^{K_v -1}$
+- $u_v = (u_{vc}, c\in \mathcal C_v) \in \Phi^{K_v -1}$
 
--   $K$ is the number of children of $v$
+- $K$ is the number of children of $v$
 
--   $\alpha_v = (\alpha_vc > 0, c \in \mathcal C_v)$
+- $\alpha_v = (\alpha_vc > 0, c \in \mathcal C_v)$
 
-$
+$$
 \begin{split}
 f_{DTM} (y; \alpha_v, v\in\mathcal V) 
 & = \prod_{v\in\mathcal V} \int_{u_v \in \Phi^{K_{v}-1}} f_M(y; u_v) f_{D}(u_v; \alpha_v) du_v \\
@@ -231,22 +247,23 @@ f_{DTM} (y; \alpha_v, v\in\mathcal V)
 \prod_{c\in \mathcal C_v} \frac {\Gamma (y_{vc} + \alpha_{vc})} 
 {\Gamma ({y_{vc} + 1}) \Gamma ({\alpha_{vc}})}
 \end{split}
-$
+$$
+
 
 that each component in the product $\prod_{v \in \mathcal V}$ corresponds to a interior node in the tree, which is a Dirichlet multinomial distribution based on the accumulated counts along branches of given node.
 
-$
+
+$$
 E[p_l] = \prod_{v\in\mathcal V} \prod_{c\in\mathcal C_v}
 \bigg(E[b_{vc}] \bigg)^{\delta_{vc}(l)} = 
 \prod_{v\in\mathcal V} 
 \prod_{c\in\mathcal C_v}\bigg( \frac {\alpha_{vc}} {\sum_{c\in \mathcal C_v} \alpha_{vc}} \bigg)^{\delta_{vc}(l)}
-$
+$$
 
 given $\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k; \ E[Y_l] = E[p_l] \sum_{k=1} ^Ky_k$
 
 Tips: 1. when $\mathcal V \neq \{v_0\}$, each $p_l$ has an independet variance
-
-1.  two components \$p\_{v_i}, p\_{v_j} \$ with in the same subtree indexed by $v \in \mathcal V$ are correlated, due to the same ancestor of $v$.
+2. two components $p_{v_i}, p_{v_j} $ with in the same subtree indexed by $v \in \mathcal V$ are correlated, due to the same ancestor of $v$.
 
 ### Dirichlet Tree Multinomial Regression Model
 
@@ -254,7 +271,7 @@ a regression of $Y = (y_1, ..., y_K)^T$ on $p$ covariates $X_1, ... X_p$
 
 for each $v \in \mathcal V$ and $c \in \mathcal C_v$ we express $\log(\alpha_{vc})$ as a linear combination of the covariates.
 
-$
+$$
 \begin{split}
 & \log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)\\
 & \log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)\\
@@ -271,13 +288,14 @@ $
 & \beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)\\
 & \beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)
 \end{split}
-$
+$$
 
-$
-l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) 
-$
 
-$
+$$
+l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) \ \ \ \ (3.a)
+$$
+
+$$
 l_v(\beta_v) = log L_v(\beta_v) = 
 \sum_{i=1}^n \Bigg[
   \tilde \Gamma \Big(\sum_{c\in \mathcal C_v} \alpha_{ivc}\Big)
@@ -288,7 +306,7 @@ l_v(\beta_v) = log L_v(\beta_v) =
     \alpha_{ivc}\Big) -
 \tilde \Gamma \Big(\alpha_{ivc}\Big) \bigg\}
 \Bigg]
-$
+$$
 
 $\tilde \Gamma (.) = \log \big(\Gamma (.) \big)$
 
@@ -296,7 +314,8 @@ $\alpha_{ivc} = \exp(x_i^T\beta_{vc})$
 
 $y_{ivc} = \sum_{l \in \mathcal L} \delta_{vc} (l) y_{il}$
 
-$
+
+$$
 l_v(\beta_v) = \log L_v(\beta_v) = 
 \sum_{i=1}^n \Bigg[
   \log \bigg(\Gamma \Big(\sum_{c\in \mathcal C_v} \exp(x_i^T\beta_{vc})\Big) \bigg) 
@@ -307,39 +326,40 @@ l_v(\beta_v) = \log L_v(\beta_v) =
     \exp(x_i^T\beta_{vc})\Big)\bigg) -
 \log \bigg(\Gamma \Big(\exp(x_i^T\beta_{vc})\Big) \bigg)\bigg\}
 \Bigg]
-$
+$$
 
 ### Regularized Likelihood Estimation
 
 parametrization for Dirichlet Tree Multinomial Regression Model
 
-number of $p$ time the number of tree branches $\sum_{v\in \mathcal V} K_v$
+number of $p$ time the number of tree branches $\sum_{v\in \mathcal V} K_v$ 
 
-$
+
+$$
 pnl_{DTM}(\beta; \lambda, \gamma) = -l_{DTM}(\beta) 
  + \lambda \bigg\{ (1- \gamma)\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{L1}
  + \gamma \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{L2} \bigg\}
-$
+$$
+
 
 ### Algorithm of accelerated proximal gradient method
 
 approximate $l_{DTM} (\beta)$ at $\beta^{(t)}$
 
-$
+
+$$
 \begin{split}
-& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \\
+& - \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \ \ \ \ (4)\\
 & pn \tilde{l}_{DMT}(\beta) = - \tilde l_{DTM} (\beta; \eta^{(t)}) + \lambda_1
 \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{1}
- + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \\
-& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \\
-& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \\
+ + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \ \ \ \ (5)\\
+& \beta^{(t+1)} = \underset {\beta} {arg min}  \big(pn \tilde{l}_{DTM} (\beta)\big) \ \ \ \ (6)\\
+& \eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \ \ \ \ (7)\\
 & \alpha_t = 2/(t+2)
 \end{split}
-$
+$$
 
-
-
-$
+$$
 \begin{split}
 & \beta_{vc}^{(t+1)}  = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2
 \bigg \|
@@ -353,6 +373,8 @@ $
 \Bigg]\\
 & \tilde \beta_{vc}^{(t+1)}  = sgn \bigg\{ \eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_{vc}^{(t)})\bigg\} \ \max \bigg\{0, \Big|\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc}(\eta_v^{(t)}) \Big| - \frac {\lambda_1} {C}\bigg\}\\
 & \beta_{vc}^{(t+1)}  = \frac {\tilde \beta_{vc}^{(t+1)}}{\|\tilde \beta_{vc}^{(t+1)}\|_2}
-\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} 
+\max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} \ \ \ \ (8)
 \end{split}
-$
+$$
+
+

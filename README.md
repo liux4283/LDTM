@@ -236,17 +236,17 @@ The link function is a multinomial-Poisson transformation
     to final leaf
     ![l](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l "l")
 
-**this is for the leaf level**
+-   **this is for the leaf level**
 
 ![f_M(y; p) = f_M(y; b_v, v\\in \\mathcal V) = \\prod\_{v \\in \\mathcal V} \\frac {\\Gamma (\\sum\_{c \\in \\mathcal C_v} y\_{vc} + 1)} {\\prod\_{c \\in \\mathcal C_v} \\Gamma ({y\_{vc} + 1})} \\prod\_{c \\in \\mathcal C_v} b\_{vc}^{y_vc}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f_M%28y%3B%20p%29%20%3D%20f_M%28y%3B%20b_v%2C%20v%5Cin%20%5Cmathcal%20V%29%20%3D%20%5Cprod_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Cfrac%20%7B%5CGamma%20%28%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20y_%7Bvc%7D%20%2B%201%29%7D%20%7B%5Cprod_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20%5CGamma%20%28%7By_%7Bvc%7D%20%2B%201%7D%29%7D%20%5Cprod_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20b_%7Bvc%7D%5E%7By_vc%7D "f_M(y; p) = f_M(y; b_v, v\in \mathcal V) = \prod_{v \in \mathcal V} \frac {\Gamma (\sum_{c \in \mathcal C_v} y_{vc} + 1)} {\prod_{c \in \mathcal C_v} \Gamma ({y_{vc} + 1})} \prod_{c \in \mathcal C_v} b_{vc}^{y_vc}")
 
 ![b_v = \\{b\_{vc}, c\\in \\mathcal C_v\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;b_v%20%3D%20%5C%7Bb_%7Bvc%7D%2C%20c%5Cin%20%5Cmathcal%20C_v%5C%7D "b_v = \{b_{vc}, c\in \mathcal C_v\}")
 
-**this is for the internal nodes**
-![b_v, v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;b_v%2C%20v%20%5Cin%20%5Cmathcal%20V "b_v, v \in \mathcal V")
-the joint density of
-![(b_v, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%28b_v%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "(b_v, v \in \mathcal V)")
-has the form of:
+-   **this is for the internal nodes**
+    ![b_v, v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;b_v%2C%20v%20%5Cin%20%5Cmathcal%20V "b_v, v \in \mathcal V")
+    the joint density of
+    ![(b_v, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%28b_v%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "(b_v, v \in \mathcal V)")
+    has the form of:
 
 ![f\_{DT} (u_v; \\alpha_v) = \\prod\_{v\\in \\mathcal V} f_D(u_v; \\alpha_v) = \\prod\_{v \\in \\mathcal V} \\frac {\\Gamma (\\sum\_{c \\in \\mathcal C_v} \\alpha\_{vc})} {\\prod\_{c \\in \\mathcal C_v} \\Gamma ({\\alpha\_{vc}})} \\prod\_{c \\in \\mathcal C_v} u\_{vc}^{\\alpha_vc - 1}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f_%7BDT%7D%20%28u_v%3B%20%5Calpha_v%29%20%3D%20%5Cprod_%7Bv%5Cin%20%5Cmathcal%20V%7D%20f_D%28u_v%3B%20%5Calpha_v%29%20%3D%20%5Cprod_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Cfrac%20%7B%5CGamma%20%28%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20%5Calpha_%7Bvc%7D%29%7D%20%7B%5Cprod_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20%5CGamma%20%28%7B%5Calpha_%7Bvc%7D%7D%29%7D%20%5Cprod_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20u_%7Bvc%7D%5E%7B%5Calpha_vc%20-%201%7D "f_{DT} (u_v; \alpha_v) = \prod_{v\in \mathcal V} f_D(u_v; \alpha_v) = \prod_{v \in \mathcal V} \frac {\Gamma (\sum_{c \in \mathcal C_v} \alpha_{vc})} {\prod_{c \in \mathcal C_v} \Gamma ({\alpha_{vc}})} \prod_{c \in \mathcal C_v} u_{vc}^{\alpha_vc - 1}")
 
@@ -264,70 +264,72 @@ has the form of:
 
 ![= \\prod\_{v\\in\\mathcal V} \\frac {\\Gamma ({\\sum\_{c\\in \\mathcal C_v} y\_{vc} + 1}) \\Gamma ({\\sum\_{c\\in \\mathcal C_v} \\alpha\_{vc}})} {\\Gamma ({\\sum\_{c \\in \\mathcal C_v} y\_{vc} } + {\\sum\_{c\\in \\mathcal C_v}\\alpha\_{vc}})} \\prod\_{c\\in \\mathcal C_v} \\frac {\\Gamma (y\_{vc} + \\alpha\_{vc})} {\\Gamma ({y\_{vc} + 1}) \\Gamma ({\\alpha\_{vc}})}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%3D%20%5Cprod_%7Bv%5Cin%5Cmathcal%20V%7D%20%5Cfrac%20%7B%5CGamma%20%28%7B%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20y_%7Bvc%7D%20%2B%201%7D%29%20%5CGamma%20%28%7B%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20%5Calpha_%7Bvc%7D%7D%29%7D%20%7B%5CGamma%20%28%7B%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20y_%7Bvc%7D%20%7D%20%2B%20%7B%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%5Calpha_%7Bvc%7D%7D%29%7D%20%5Cprod_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20%5Cfrac%20%7B%5CGamma%20%28y_%7Bvc%7D%20%2B%20%5Calpha_%7Bvc%7D%29%7D%20%7B%5CGamma%20%28%7By_%7Bvc%7D%20%2B%201%7D%29%20%5CGamma%20%28%7B%5Calpha_%7Bvc%7D%7D%29%7D "= \prod_{v\in\mathcal V} \frac {\Gamma ({\sum_{c\in \mathcal C_v} y_{vc} + 1}) \Gamma ({\sum_{c\in \mathcal C_v} \alpha_{vc}})} {\Gamma ({\sum_{c \in \mathcal C_v} y_{vc} } + {\sum_{c\in \mathcal C_v}\alpha_{vc}})} \prod_{c\in \mathcal C_v} \frac {\Gamma (y_{vc} + \alpha_{vc})} {\Gamma ({y_{vc} + 1}) \Gamma ({\alpha_{vc}})}")
 
-that each component in the product
-![\\prod\_{v \\in \\mathcal V}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cprod_%7Bv%20%5Cin%20%5Cmathcal%20V%7D "\prod_{v \in \mathcal V}")
-corresponds to a interior node in the tree, which is a Dirichlet
-multinomial distribution based on the accumulated counts along branches
-of given node.
+-   that each component in the product
+    ![\\prod\_{v \\in \\mathcal V}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cprod_%7Bv%20%5Cin%20%5Cmathcal%20V%7D "\prod_{v \in \mathcal V}")
+    corresponds to a interior node in the tree
+
+-   the Dirichlet multinomial distribution based on the accumulated
+    counts along branches of given node.
 
 ![E\[p_l\] = \\prod\_{v\\in\\mathcal V} \\prod\_{c\\in\\mathcal C_v}\\bigg(E\[b\_{vc}\] \\bigg)^{\\delta\_{vc}(l)} = \\prod\_{v\\in\\mathcal V} \\prod\_{c\\in\\mathcal C_v}\\bigg( \\frac {\\alpha\_{vc}} {\\sum\_{c\\in \\mathcal C_v} \\alpha\_{vc}} \\bigg)^{\\delta\_{vc}(l)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;E%5Bp_l%5D%20%3D%20%5Cprod_%7Bv%5Cin%5Cmathcal%20V%7D%20%5Cprod_%7Bc%5Cin%5Cmathcal%20C_v%7D%5Cbigg%28E%5Bb_%7Bvc%7D%5D%20%5Cbigg%29%5E%7B%5Cdelta_%7Bvc%7D%28l%29%7D%20%3D%20%5Cprod_%7Bv%5Cin%5Cmathcal%20V%7D%20%5Cprod_%7Bc%5Cin%5Cmathcal%20C_v%7D%5Cbigg%28%20%5Cfrac%20%7B%5Calpha_%7Bvc%7D%7D%20%7B%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20%5Calpha_%7Bvc%7D%7D%20%5Cbigg%29%5E%7B%5Cdelta_%7Bvc%7D%28l%29%7D "E[p_l] = \prod_{v\in\mathcal V} \prod_{c\in\mathcal C_v}\bigg(E[b_{vc}] \bigg)^{\delta_{vc}(l)} = \prod_{v\in\mathcal V} \prod_{c\in\mathcal C_v}\bigg( \frac {\alpha_{vc}} {\sum_{c\in \mathcal C_v} \alpha_{vc}} \bigg)^{\delta_{vc}(l)}")
 
-given
-![\\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k; \\ E\[Y_l\] = E\[p_l\] \\sum\_{k=1} ^Ky_k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k%3B%20%5C%20E%5BY_l%5D%20%3D%20E%5Bp_l%5D%20%5Csum_%7Bk%3D1%7D%20%5EKy_k "\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k; \ E[Y_l] = E[p_l] \sum_{k=1} ^Ky_k")
+-   given
+    ![\\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k; \\ E\[Y_l\] = E\[p_l\] \\sum\_{k=1} ^Ky_k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k%3B%20%5C%20E%5BY_l%5D%20%3D%20E%5Bp_l%5D%20%5Csum_%7Bk%3D1%7D%20%5EKy_k "\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k; \ E[Y_l] = E[p_l] \sum_{k=1} ^Ky_k")
 
-Tips: 1. when
-![\\mathcal V \\neq \\{v_0\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathcal%20V%20%5Cneq%20%5C%7Bv_0%5C%7D "\mathcal V \neq \{v_0\}"),
-each
-![p_l](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_l "p_l")
-has an independet variance 2. two components
-![p\_{v_i}, p\_{v_j}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_%7Bv_i%7D%2C%20p_%7Bv_j%7D "p_{v_i}, p_{v_j}")
-with in the same subtree indexed by
-![v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v%20%5Cin%20%5Cmathcal%20V "v \in \mathcal V")
-are correlated, due to the same ancestor of
-![v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v "v").
+    1.  when
+        ![\\mathcal V \\neq \\{v_0\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathcal%20V%20%5Cneq%20%5C%7Bv_0%5C%7D "\mathcal V \neq \{v_0\}"),
+        each
+        ![p_l](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_l "p_l")
+        has an independent variance
+    2.  two components
+        ![p\_{v_i}, p\_{v_j}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_%7Bv_i%7D%2C%20p_%7Bv_j%7D "p_{v_i}, p_{v_j}")
+        with in the same subtree indexed by
+        ![v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v%20%5Cin%20%5Cmathcal%20V "v \in \mathcal V")
+        are correlated, due to the same ancestor of
+        ![v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v "v").
 
 ### Dirichlet Tree Multinomial Regression Model
 
-a regression of
-![Y = (y_1, ..., y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET "Y = (y_1, ..., y_K)^T")
-on
-![p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p "p")
-covariates
-![X_1, ... X_p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;X_1%2C%20...%20X_p "X_1, ... X_p")
+-   a regression of
+    ![Y = (y_1, ..., y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET "Y = (y_1, ..., y_K)^T")
+    on
+    ![p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p "p")
+    covariates
+    ![X_1, ... X_p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;X_1%2C%20...%20X_p "X_1, ... X_p")
 
-for each
-![v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v%20%5Cin%20%5Cmathcal%20V "v \in \mathcal V")
-and
-![c \\in \\mathcal C_v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;c%20%5Cin%20%5Cmathcal%20C_v "c \in \mathcal C_v")
-we express
-![\\log(\\alpha\_{vc})](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29 "\log(\alpha_{vc})")
-as a linear combination of the covariates.
+-   for each
+    ![v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v%20%5Cin%20%5Cmathcal%20V "v \in \mathcal V")
+    and
+    ![c \\in \\mathcal C_v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;c%20%5Cin%20%5Cmathcal%20C_v "c \in \mathcal C_v")
+    we express
+    ![\\log(\\alpha\_{vc})](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29 "\log(\alpha_{vc})")
+    as a linear combination of the covariates.
 
-![\\log(\\alpha\_{vc}) = X^T \\beta\_{vc} \\ \\ \\ \\ (2.a)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29%20%3D%20X%5ET%20%5Cbeta_%7Bvc%7D%20%5C%20%5C%20%5C%20%5C%20%282.a%29 "\log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)")
+    ![\\log(\\alpha\_{vc}) = X^T \\beta\_{vc} \\ \\ \\ \\ (2.a)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29%20%3D%20X%5ET%20%5Cbeta_%7Bvc%7D%20%5C%20%5C%20%5C%20%5C%20%282.a%29 "\log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)")
 
-![\\log(\\alpha\_{(i)vc}) = X_i^T \\beta\_{(i)vc} + Z_i^T b\_{(i){vc}}\\ \\ \\ \\ (2.b)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7B%28i%29vc%7D%29%20%3D%20X_i%5ET%20%5Cbeta_%7B%28i%29vc%7D%20%2B%20Z_i%5ET%20b_%7B%28i%29%7Bvc%7D%7D%5C%20%5C%20%5C%20%5C%20%282.b%29 "\log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)")
+    ![\\log(\\alpha\_{(i)vc}) = X_i^T \\beta\_{(i)vc} + Z_i^T b\_{(i){vc}}\\ \\ \\ \\ (2.b)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7B%28i%29vc%7D%29%20%3D%20X_i%5ET%20%5Cbeta_%7B%28i%29vc%7D%20%2B%20Z_i%5ET%20b_%7B%28i%29%7Bvc%7D%7D%5C%20%5C%20%5C%20%5C%20%282.b%29 "\log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)")
 
-![X = (X_1, ..., X_p)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;X%20%3D%20%28X_1%2C%20...%2C%20X_p%29%5ET "X = (X_1, ..., X_p)^T")
+    ![X = (X_1, ..., X_p)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;X%20%3D%20%28X_1%2C%20...%2C%20X_p%29%5ET "X = (X_1, ..., X_p)^T")
 
-![\\beta\_{vc} = (\\beta\_{vc1}, ..., \\beta\_{vcp})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%20%3D%20%28%5Cbeta_%7Bvc1%7D%2C%20...%2C%20%5Cbeta_%7Bvcp%7D%29%5ET "\beta_{vc} = (\beta_{vc1}, ..., \beta_{vcp})^T")
+    ![\\beta\_{vc} = (\\beta\_{vc1}, ..., \\beta\_{vcp})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%20%3D%20%28%5Cbeta_%7Bvc1%7D%2C%20...%2C%20%5Cbeta_%7Bvcp%7D%29%5ET "\beta_{vc} = (\beta_{vc1}, ..., \beta_{vcp})^T")
 
-![y_i = (y\_{i1}, ..., y\_{iK})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;y_i%20%3D%20%28y_%7Bi1%7D%2C%20...%2C%20y_%7BiK%7D%29%5ET "y_i = (y_{i1}, ..., y_{iK})^T")
+    ![y_i = (y\_{i1}, ..., y\_{iK})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;y_i%20%3D%20%28y_%7Bi1%7D%2C%20...%2C%20y_%7BiK%7D%29%5ET "y_i = (y_{i1}, ..., y_{iK})^T")
 
-![x_i = (x\_{i1}, ..., x\_{ip})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x_i%20%3D%20%28x_%7Bi1%7D%2C%20...%2C%20x_%7Bip%7D%29%5ET "x_i = (x_{i1}, ..., x_{ip})^T")
+    ![x_i = (x\_{i1}, ..., x\_{ip})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x_i%20%3D%20%28x_%7Bi1%7D%2C%20...%2C%20x_%7Bip%7D%29%5ET "x_i = (x_{i1}, ..., x_{ip})^T")
 
-![b\_{vc} = (b\_{vc1}, ..., b\_{vcq})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;b_%7Bvc%7D%20%3D%20%28b_%7Bvc1%7D%2C%20...%2C%20b_%7Bvcq%7D%29%5ET "b_{vc} = (b_{vc1}, ..., b_{vcq})^T")
+    ![b\_{vc} = (b\_{vc1}, ..., b\_{vcq})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;b_%7Bvc%7D%20%3D%20%28b_%7Bvc1%7D%2C%20...%2C%20b_%7Bvcq%7D%29%5ET "b_{vc} = (b_{vc1}, ..., b_{vcq})^T")
 
-![z_i = (z\_{i1}, ..., z\_{iq})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;z_i%20%3D%20%28z_%7Bi1%7D%2C%20...%2C%20z_%7Biq%7D%29%5ET "z_i = (z_{i1}, ..., z_{iq})^T")
+    ![z_i = (z\_{i1}, ..., z\_{iq})^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;z_i%20%3D%20%28z_%7Bi1%7D%2C%20...%2C%20z_%7Biq%7D%29%5ET "z_i = (z_{i1}, ..., z_{iq})^T")
 
-![\\beta_v = (\\beta\_{vc}, c \\in \\mathcal C_v)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_v%20%3D%20%28%5Cbeta_%7Bvc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29 "\beta_v = (\beta_{vc}, c \in \mathcal C_v)")
+    ![\\beta_v = (\\beta\_{vc}, c \\in \\mathcal C_v)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_v%20%3D%20%28%5Cbeta_%7Bvc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29 "\beta_v = (\beta_{vc}, c \in \mathcal C_v)")
 
-![\\beta = (\\beta_v, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%20%3D%20%28%5Cbeta_v%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "\beta = (\beta_v, v \in \mathcal V)")
+    ![\\beta = (\\beta_v, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%20%3D%20%28%5Cbeta_v%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "\beta = (\beta_v, v \in \mathcal V)")
 
-![\\beta\_{vi} \| b\_{vi} = (\\beta\_{(i)vc} \| b\_{(i)vc}, c \\in \\mathcal C_v)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvi%7D%20%7C%20b_%7Bvi%7D%20%3D%20%28%5Cbeta_%7B%28i%29vc%7D%20%7C%20b_%7B%28i%29vc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29 "\beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)")
+    ![\\beta\_{vi} \| b\_{vi} = (\\beta\_{(i)vc} \| b\_{(i)vc}, c \\in \\mathcal C_v)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvi%7D%20%7C%20b_%7Bvi%7D%20%3D%20%28%5Cbeta_%7B%28i%29vc%7D%20%7C%20b_%7B%28i%29vc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29 "\beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)")
 
-![\\beta_i \| b\_{i} = (\\beta\_{(i)v}\| b\_{(i)v}, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_i%20%7C%20b_%7Bi%7D%20%3D%20%28%5Cbeta_%7B%28i%29v%7D%7C%20b_%7B%28i%29v%7D%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "\beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)")
+    ![\\beta_i \| b\_{i} = (\\beta\_{(i)v}\| b\_{(i)v}, v \\in \\mathcal V)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_i%20%7C%20b_%7Bi%7D%20%3D%20%28%5Cbeta_%7B%28i%29v%7D%7C%20b_%7B%28i%29v%7D%2C%20v%20%5Cin%20%5Cmathcal%20V%29 "\beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)")
 
-![l\_{DTM}(\\beta) = \\log L\_{DTM}(\\beta) = \\sum\_{v \\in \\mathcal V} \\log L_v(\\beta_v) \\ \\ \\ \\ (3.a)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Clog%20L_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Clog%20L_v%28%5Cbeta_v%29%20%5C%20%5C%20%5C%20%5C%20%283.a%29 "l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) \ \ \ \ (3.a)")
+    ![l\_{DTM}(\\beta) = \\log L\_{DTM}(\\beta) = \\sum\_{v \\in \\mathcal V} \\log L_v(\\beta_v) \\ \\ \\ \\ (3.a)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Clog%20L_%7BDTM%7D%28%5Cbeta%29%20%3D%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Clog%20L_v%28%5Cbeta_v%29%20%5C%20%5C%20%5C%20%5C%20%283.a%29 "l_{DTM}(\beta) = \log L_{DTM}(\beta) = \sum_{v \in \mathcal V} \log L_v(\beta_v) \ \ \ \ (3.a)")
 
 ![l_v(\\beta_v) = log L_v(\\beta_v) = \\sum\_{i=1}^n \\Bigg\[\\tilde \\Gamma \\Big(\\sum\_{c\\in \\mathcal C_v} \\alpha\_{ivc}\\Big) - \\tilde \\Gamma \\Big(\\sum\_{c\\in \\mathcal C_v} y\_{ivc} + \\sum\_{c\\in \\mathcal C_v} \\alpha\_{ivc}\\Big) +c\\sum\_{c \\in \\mathcal C_v} \\bigg\\{ \\tilde \\Gamma \\Big(y\_{ivc} + \\alpha\_{ivc}\\Big) - \\tilde \\Gamma \\Big(\\alpha\_{ivc}\\Big) \\bigg\\}\\Bigg\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l_v%28%5Cbeta_v%29%20%3D%20log%20L_v%28%5Cbeta_v%29%20%3D%20%5Csum_%7Bi%3D1%7D%5En%20%5CBigg%5B%5Ctilde%20%5CGamma%20%5CBig%28%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20%5Calpha_%7Bivc%7D%5CBig%29%20-%20%5Ctilde%20%5CGamma%20%5CBig%28%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20y_%7Bivc%7D%20%2B%20%5Csum_%7Bc%5Cin%20%5Cmathcal%20C_v%7D%20%5Calpha_%7Bivc%7D%5CBig%29%20%2Bc%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%20%5Cbigg%5C%7B%20%5Ctilde%20%5CGamma%20%5CBig%28y_%7Bivc%7D%20%2B%20%5Calpha_%7Bivc%7D%5CBig%29%20-%20%5Ctilde%20%5CGamma%20%5CBig%28%5Calpha_%7Bivc%7D%5CBig%29%20%5Cbigg%5C%7D%5CBigg%5D "l_v(\beta_v) = log L_v(\beta_v) = \sum_{i=1}^n \Bigg[\tilde \Gamma \Big(\sum_{c\in \mathcal C_v} \alpha_{ivc}\Big) - \tilde \Gamma \Big(\sum_{c\in \mathcal C_v} y_{ivc} + \sum_{c\in \mathcal C_v} \alpha_{ivc}\Big) +c\sum_{c \in \mathcal C_v} \bigg\{ \tilde \Gamma \Big(y_{ivc} + \alpha_{ivc}\Big) - \tilde \Gamma \Big(\alpha_{ivc}\Big) \bigg\}\Bigg]")
 
@@ -341,36 +343,36 @@ as a linear combination of the covariates.
 
 ### Regularized Likelihood Estimation
 
-parametrization for Dirichlet Tree Multinomial Regression Model
+-   parametrization for Dirichlet Tree Multinomial Regression Model
 
-number of
-![p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p "p")
-time the number of tree branches
-![\\sum\_{v\\in \\mathcal V} K_v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bv%5Cin%20%5Cmathcal%20V%7D%20K_v "\sum_{v\in \mathcal V} K_v")
+-   the number of
+    ![p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p "p")
+    time the number of tree branches
+    ![\\sum\_{v\\in \\mathcal V} K_v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bv%5Cin%20%5Cmathcal%20V%7D%20K_v "\sum_{v\in \mathcal V} K_v")
 
 ![pnl\_{DTM}(\\beta; \\lambda, \\gamma) = -l\_{DTM}(\\beta) + \\lambda \\bigg\\{ (1- \\gamma)\\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{L1} + \\gamma \\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{L2} \\bigg\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;pnl_%7BDTM%7D%28%5Cbeta%3B%20%5Clambda%2C%20%5Cgamma%29%20%3D%20-l_%7BDTM%7D%28%5Cbeta%29%20%2B%20%5Clambda%20%5Cbigg%5C%7B%20%281-%20%5Cgamma%29%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7BL1%7D%20%2B%20%5Cgamma%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7BL2%7D%20%5Cbigg%5C%7D "pnl_{DTM}(\beta; \lambda, \gamma) = -l_{DTM}(\beta) + \lambda \bigg\{ (1- \gamma)\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{L1} + \gamma \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{L2} \bigg\}")
 
 ### Algorithm of accelerated proximal gradient method
 
-approximate
-![l\_{DTM} (\\beta)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l_%7BDTM%7D%20%28%5Cbeta%29 "l_{DTM} (\beta)")
-at
-![\\beta^{(t)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%5E%7B%28t%29%7D "\beta^{(t)}")
+-   approximate
+    ![l\_{DTM} (\\beta)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l_%7BDTM%7D%20%28%5Cbeta%29 "l_{DTM} (\beta)")
+    at
+    ![\\beta^{(t)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%5E%7B%28t%29%7D "\beta^{(t)}")
 
-![- \\tilde l\_{DTM}(\\beta; \\eta^{(t)}) = -l\_{DTM}(\\eta^{(t)}) - \\langle\\beta - \\eta^{(t)}, \\nabla l\_{DTM} (\\eta^{(t)})\\rangle + \\frac {C} {2} \\\|\\beta - \\eta^{(t)}\\\|^2_2 \\ \\ \\ \\ (4)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;-%20%5Ctilde%20l_%7BDTM%7D%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%3D%20-l_%7BDTM%7D%28%5Ceta%5E%7B%28t%29%7D%29%20-%20%5Clangle%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%2C%20%5Cnabla%20l_%7BDTM%7D%20%28%5Ceta%5E%7B%28t%29%7D%29%5Crangle%20%2B%20%5Cfrac%20%7BC%7D%20%7B2%7D%20%5C%7C%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%5C%7C%5E2_2%20%5C%20%5C%20%5C%20%5C%20%284%29 "- \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \ \ \ \ (4)")
+    ![- \\tilde l\_{DTM}(\\beta; \\eta^{(t)}) = -l\_{DTM}(\\eta^{(t)}) - \\langle\\beta - \\eta^{(t)}, \\nabla l\_{DTM} (\\eta^{(t)})\\rangle + \\frac {C} {2} \\\|\\beta - \\eta^{(t)}\\\|^2_2 \\ \\ \\ \\ (4)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;-%20%5Ctilde%20l_%7BDTM%7D%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%3D%20-l_%7BDTM%7D%28%5Ceta%5E%7B%28t%29%7D%29%20-%20%5Clangle%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%2C%20%5Cnabla%20l_%7BDTM%7D%20%28%5Ceta%5E%7B%28t%29%7D%29%5Crangle%20%2B%20%5Cfrac%20%7BC%7D%20%7B2%7D%20%5C%7C%5Cbeta%20-%20%5Ceta%5E%7B%28t%29%7D%5C%7C%5E2_2%20%5C%20%5C%20%5C%20%5C%20%284%29 "- \tilde l_{DTM}(\beta; \eta^{(t)}) = -l_{DTM}(\eta^{(t)}) - \langle\beta - \eta^{(t)}, \nabla l_{DTM} (\eta^{(t)})\rangle + \frac {C} {2} \|\beta - \eta^{(t)}\|^2_2 \ \ \ \ (4)")
 
-![pn \\tilde{l}\_{DMT}(\\beta) = - \\tilde l\_{DTM} (\\beta; \\eta^{(t)}) + \\lambda_1 \\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{1} + \\lambda_2\\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{2} \\ \\ \\ \\ (5)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;pn%20%5Ctilde%7Bl%7D_%7BDMT%7D%28%5Cbeta%29%20%3D%20-%20%5Ctilde%20l_%7BDTM%7D%20%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%2B%20%5Clambda_1%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B1%7D%20%2B%20%5Clambda_2%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B2%7D%20%5C%20%5C%20%5C%20%5C%20%285%29 "pn \tilde{l}_{DMT}(\beta) = - \tilde l_{DTM} (\beta; \eta^{(t)}) + \lambda_1 \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{1} + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \ \ \ \ (5)")
+    ![pn \\tilde{l}\_{DMT}(\\beta) = - \\tilde l\_{DTM} (\\beta; \\eta^{(t)}) + \\lambda_1 \\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{1} + \\lambda_2\\sum\_{v \\in \\mathcal V} \\sum\_{c \\in \\mathcal C_v}\\\|\\beta\_{cv}\\\|\_{2} \\ \\ \\ \\ (5)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;pn%20%5Ctilde%7Bl%7D_%7BDMT%7D%28%5Cbeta%29%20%3D%20-%20%5Ctilde%20l_%7BDTM%7D%20%28%5Cbeta%3B%20%5Ceta%5E%7B%28t%29%7D%29%20%2B%20%5Clambda_1%20%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B1%7D%20%2B%20%5Clambda_2%5Csum_%7Bv%20%5Cin%20%5Cmathcal%20V%7D%20%5Csum_%7Bc%20%5Cin%20%5Cmathcal%20C_v%7D%5C%7C%5Cbeta_%7Bcv%7D%5C%7C_%7B2%7D%20%5C%20%5C%20%5C%20%5C%20%285%29 "pn \tilde{l}_{DMT}(\beta) = - \tilde l_{DTM} (\beta; \eta^{(t)}) + \lambda_1 \sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{1} + \lambda_2\sum_{v \in \mathcal V} \sum_{c \in \mathcal C_v}\|\beta_{cv}\|_{2} \ \ \ \ (5)")
 
-![\\beta^{(t+1)} = \\underset {\\beta} {arg min} \\big(pn \\tilde{l}\_{DTM} (\\beta)\\big) \\ \\ \\ \\ (6)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta%7D%20%7Barg%20min%7D%20%5Cbig%28pn%20%5Ctilde%7Bl%7D_%7BDTM%7D%20%28%5Cbeta%29%5Cbig%29%20%5C%20%5C%20%5C%20%5C%20%286%29 "\beta^{(t+1)} = \underset {\beta} {arg min} \big(pn \tilde{l}_{DTM} (\beta)\big) \ \ \ \ (6)")
+    ![\\beta^{(t+1)} = \\underset {\\beta} {arg min} \\big(pn \\tilde{l}\_{DTM} (\\beta)\\big) \\ \\ \\ \\ (6)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta%7D%20%7Barg%20min%7D%20%5Cbig%28pn%20%5Ctilde%7Bl%7D_%7BDTM%7D%20%28%5Cbeta%29%5Cbig%29%20%5C%20%5C%20%5C%20%5C%20%286%29 "\beta^{(t+1)} = \underset {\beta} {arg min} \big(pn \tilde{l}_{DTM} (\beta)\big) \ \ \ \ (6)")
 
-![\\eta^{(t+1)} = \\beta^{(t+1)} + \\frac {1-\\alpha_t} {\\alpha_t} \\alpha\_{t+1} (\\beta^{(t+1)} - \\beta^{(t)}) \\ \\ \\ \\ (7)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ceta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%2B%20%5Cfrac%20%7B1-%5Calpha_t%7D%20%7B%5Calpha_t%7D%20%5Calpha_%7Bt%2B1%7D%20%28%5Cbeta%5E%7B%28t%2B1%29%7D%20-%20%5Cbeta%5E%7B%28t%29%7D%29%20%5C%20%5C%20%5C%20%5C%20%287%29 "\eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \ \ \ \ (7)")
+    ![\\eta^{(t+1)} = \\beta^{(t+1)} + \\frac {1-\\alpha_t} {\\alpha_t} \\alpha\_{t+1} (\\beta^{(t+1)} - \\beta^{(t)}) \\ \\ \\ \\ (7)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ceta%5E%7B%28t%2B1%29%7D%20%3D%20%5Cbeta%5E%7B%28t%2B1%29%7D%20%2B%20%5Cfrac%20%7B1-%5Calpha_t%7D%20%7B%5Calpha_t%7D%20%5Calpha_%7Bt%2B1%7D%20%28%5Cbeta%5E%7B%28t%2B1%29%7D%20-%20%5Cbeta%5E%7B%28t%29%7D%29%20%5C%20%5C%20%5C%20%5C%20%287%29 "\eta^{(t+1)} = \beta^{(t+1)} + \frac {1-\alpha_t} {\alpha_t} \alpha_{t+1} (\beta^{(t+1)} - \beta^{(t)}) \ \ \ \ (7)")
 
-![\\alpha_t = 2/(t+2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Calpha_t%20%3D%202%2F%28t%2B2%29 "\alpha_t = 2/(t+2)")
+    ![\\alpha_t = 2/(t+2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Calpha_t%20%3D%202%2F%28t%2B2%29 "\alpha_t = 2/(t+2)")
 
-![\\beta\_{vc}^{(t+1)} = \\underset {\\beta\_{vc}} {argmin} \\Bigg\[ \\frac 1 2 \\bigg \\\|\\beta\_{vc} - \\Big\\{\\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc} (\\eta_v^{(t)}) \\Big\\}\\bigg\\\|\_2^2 + \\frac {\\lambda_1} {C}\\\|\\beta\_{vc}\\\|\_1 + \\frac {\\lambda_2} {C} \\\|\\beta\_{vc}\\\|\_2 \\Bigg\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%20%5Cbigg%20%5C%7C%5Cbeta_%7Bvc%7D%20-%20%5CBig%5C%7B%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%5C%7D%5Cbigg%5C%7C_2%5E2%20%2B%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Clambda_2%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%20%5CBigg%5D "\beta_{vc}^{(t+1)} = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2 \bigg \|\beta_{vc} - \Big\{\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_v^{(t)}) \Big\}\bigg\|_2^2 + \frac {\lambda_1} {C}\|\beta_{vc}\|_1 + \frac {\lambda_2} {C} \|\beta_{vc}\|_2 \Bigg]")
+    ![\\beta\_{vc}^{(t+1)} = \\underset {\\beta\_{vc}} {argmin} \\Bigg\[ \\frac 1 2 \\bigg \\\|\\beta\_{vc} - \\Big\\{\\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc} (\\eta_v^{(t)}) \\Big\\}\\bigg\\\|\_2^2 + \\frac {\\lambda_1} {C}\\\|\\beta\_{vc}\\\|\_1 + \\frac {\\lambda_2} {C} \\\|\\beta\_{vc}\\\|\_2 \\Bigg\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%20%5Cbigg%20%5C%7C%5Cbeta_%7Bvc%7D%20-%20%5CBig%5C%7B%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%5C%7D%5Cbigg%5C%7C_2%5E2%20%2B%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Clambda_2%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%20%5CBigg%5D "\beta_{vc}^{(t+1)} = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2 \bigg \|\beta_{vc} - \Big\{\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_v^{(t)}) \Big\}\bigg\|_2^2 + \frac {\lambda_1} {C}\|\beta_{vc}\|_1 + \frac {\lambda_2} {C} \|\beta_{vc}\|_2 \Bigg]")
 
-![\\text {s.t.} \\ \\ \\beta\_{vc}^{(t+1)} = \\underset {\\beta\_{vc}} {argmin} \\Bigg\[ \\frac 1 2 \\bigg \\\| \\beta\_{vc} +\\frac 1 C \\nabla l\_{vc} (0) \\bigg\\\|\_2^2 + \\lambda \\bigg(\\frac {1-\\gamma} {C}\\\|\\beta\_{vc}\\\|\_1 + \\frac {\\gamma} {C} \\\|\\beta\_{vc}\\\|\_2\\bigg) \\Bigg\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ctext%20%7Bs.t.%7D%20%5C%20%5C%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%20%5Cbigg%20%5C%7C%20%5Cbeta_%7Bvc%7D%20%2B%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%280%29%20%5Cbigg%5C%7C_2%5E2%20%2B%20%5Clambda%20%5Cbigg%28%5Cfrac%20%7B1-%5Cgamma%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Cgamma%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%5Cbigg%29%20%5CBigg%5D "\text {s.t.} \ \ \beta_{vc}^{(t+1)} = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2 \bigg \| \beta_{vc} +\frac 1 C \nabla l_{vc} (0) \bigg\|_2^2 + \lambda \bigg(\frac {1-\gamma} {C}\|\beta_{vc}\|_1 + \frac {\gamma} {C} \|\beta_{vc}\|_2\bigg) \Bigg]")
+    ![\\text {s.t.} \\ \\ \\beta\_{vc}^{(t+1)} = \\underset {\\beta\_{vc}} {argmin} \\Bigg\[ \\frac 1 2 \\bigg \\\| \\beta\_{vc} +\\frac 1 C \\nabla l\_{vc} (0) \\bigg\\\|\_2^2 + \\lambda \\bigg(\\frac {1-\\gamma} {C}\\\|\\beta\_{vc}\\\|\_1 + \\frac {\\gamma} {C} \\\|\\beta\_{vc}\\\|\_2\\bigg) \\Bigg\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ctext%20%7Bs.t.%7D%20%5C%20%5C%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cunderset%20%7B%5Cbeta_%7Bvc%7D%7D%20%7Bargmin%7D%20%5CBigg%5B%20%5Cfrac%201%202%20%5Cbigg%20%5C%7C%20%5Cbeta_%7Bvc%7D%20%2B%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%280%29%20%5Cbigg%5C%7C_2%5E2%20%2B%20%5Clambda%20%5Cbigg%28%5Cfrac%20%7B1-%5Cgamma%7D%20%7BC%7D%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_1%20%2B%20%5Cfrac%20%7B%5Cgamma%7D%20%7BC%7D%20%5C%7C%5Cbeta_%7Bvc%7D%5C%7C_2%5Cbigg%29%20%5CBigg%5D "\text {s.t.} \ \ \beta_{vc}^{(t+1)} = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2 \bigg \| \beta_{vc} +\frac 1 C \nabla l_{vc} (0) \bigg\|_2^2 + \lambda \bigg(\frac {1-\gamma} {C}\|\beta_{vc}\|_1 + \frac {\gamma} {C} \|\beta_{vc}\|_2\bigg) \Bigg]")
 
-![\\tilde \\beta\_{vc}^{(t+1)} = sgn \\bigg\\{ \\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc} (\\eta\_{vc}^{(t)})\\bigg\\} \\ \\max \\bigg\\{0, \\Big\|\\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc}(\\eta_v^{(t)}) \\Big\| - \\frac {\\lambda_1} {C}\\bigg\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20sgn%20%5Cbigg%5C%7B%20%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%29%5Cbigg%5C%7D%20%5C%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%7C%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%7C%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D "\tilde \beta_{vc}^{(t+1)} = sgn \bigg\{ \eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_{vc}^{(t)})\bigg\} \ \max \bigg\{0, \Big|\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc}(\eta_v^{(t)}) \Big| - \frac {\lambda_1} {C}\bigg\}")
+    ![\\tilde \\beta\_{vc}^{(t+1)} = sgn \\bigg\\{ \\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc} (\\eta\_{vc}^{(t)})\\bigg\\} \\ \\max \\bigg\\{0, \\Big\|\\eta\_{vc}^{(t)} - \\frac 1 C \\nabla l\_{vc}(\\eta_v^{(t)}) \\Big\| - \\frac {\\lambda_1} {C}\\bigg\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20sgn%20%5Cbigg%5C%7B%20%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%20%28%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%29%5Cbigg%5C%7D%20%5C%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%7C%5Ceta_%7Bvc%7D%5E%7B%28t%29%7D%20-%20%5Cfrac%201%20C%20%5Cnabla%20l_%7Bvc%7D%28%5Ceta_v%5E%7B%28t%29%7D%29%20%5CBig%7C%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D "\tilde \beta_{vc}^{(t+1)} = sgn \bigg\{ \eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_{vc}^{(t)})\bigg\} \ \max \bigg\{0, \Big|\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc}(\eta_v^{(t)}) \Big| - \frac {\lambda_1} {C}\bigg\}")
 
-![\\beta\_{vc}^{(t+1)} = \\frac {\\tilde \\beta\_{vc}^{(t+1)}}{\\\|\\tilde \\beta\_{vc}^{(t+1)}\\\|\_2} \\max \\bigg\\{0, \\Big\\\|\\tilde \\beta\_{vc}^{(t+1)} \\Big\\\|\_2 - \\frac {\\lambda_1} {C}\\bigg\\} \\ \\ \\ \\ (8)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cfrac%20%7B%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%7D%7B%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%5C%7C_2%7D%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%5CBig%5C%7C_2%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%20%5C%20%5C%20%5C%20%5C%20%288%29 "\beta_{vc}^{(t+1)} = \frac {\tilde \beta_{vc}^{(t+1)}}{\|\tilde \beta_{vc}^{(t+1)}\|_2} \max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} \ \ \ \ (8)")
+    ![\\beta\_{vc}^{(t+1)} = \\frac {\\tilde \\beta\_{vc}^{(t+1)}}{\\\|\\tilde \\beta\_{vc}^{(t+1)}\\\|\_2} \\max \\bigg\\{0, \\Big\\\|\\tilde \\beta\_{vc}^{(t+1)} \\Big\\\|\_2 - \\frac {\\lambda_1} {C}\\bigg\\} \\ \\ \\ \\ (8)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%3D%20%5Cfrac%20%7B%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%7D%7B%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%5C%7C_2%7D%20%5Cmax%20%5Cbigg%5C%7B0%2C%20%5CBig%5C%7C%5Ctilde%20%5Cbeta_%7Bvc%7D%5E%7B%28t%2B1%29%7D%20%5CBig%5C%7C_2%20-%20%5Cfrac%20%7B%5Clambda_1%7D%20%7BC%7D%5Cbigg%5C%7D%20%5C%20%5C%20%5C%20%5C%20%288%29 "\beta_{vc}^{(t+1)} = \frac {\tilde \beta_{vc}^{(t+1)}}{\|\tilde \beta_{vc}^{(t+1)}\|_2} \max \bigg\{0, \Big\|\tilde \beta_{vc}^{(t+1)} \Big\|_2 - \frac {\lambda_1} {C}\bigg\} \ \ \ \ (8)")

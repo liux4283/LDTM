@@ -1,5 +1,5 @@
-Randy
-27 April 2022
+TEST
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -83,6 +83,26 @@ covaraite
 ## Model
 
 ### Multinomial logistic regression
+
+![
+\\begin{split}
+& Y = (Y_1, ..., Y_K)^T\\\\
+& y = (y_1, ..., y_K)^T\\\\
+& \\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k\\\\
+& p = (p_1, ..., p_K)^T,\\ \\sum\_{k=1} ^K p_k =1\\\\
+& f_M(y;\\ p) = \\frac {\\Gamma ({\\sum\_{k=1}^K y_k + 1})} 
+{\\prod\_{k=1}^K \\Gamma ({y_k + 1})} \\prod\_{k=1}^Kp_k^{y_k}\\\\
+\\end{split}
+](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20Y%20%3D%20%28Y_1%2C%20...%2C%20Y_K%29%5ET%5C%5C%0A%26%20y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET%5C%5C%0A%26%20%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k%5C%5C%0A%26%20p%20%3D%20%28p_1%2C%20...%2C%20p_K%29%5ET%2C%5C%20%5Csum_%7Bk%3D1%7D%20%5EK%20p_k%20%3D1%5C%5C%0A%26%20f_M%28y%3B%5C%20p%29%20%3D%20%5Cfrac%20%7B%5CGamma%20%28%7B%5Csum_%7Bk%3D1%7D%5EK%20y_k%20%2B%201%7D%29%7D%20%0A%7B%5Cprod_%7Bk%3D1%7D%5EK%20%5CGamma%20%28%7By_k%20%2B%201%7D%29%7D%20%5Cprod_%7Bk%3D1%7D%5EKp_k%5E%7By_k%7D%5C%5C%0A%5Cend%7Bsplit%7D%0A "
+\begin{split}
+& Y = (Y_1, ..., Y_K)^T\\
+& y = (y_1, ..., y_K)^T\\
+& \sum_{k=1}^K Y_k = \sum_{k=1}^K y_k\\
+& p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1\\
+& f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} 
+{\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}\\
+\end{split}
+")
 
 The link function is a multinomial-Poisson transformation
 
@@ -337,8 +357,9 @@ Tips: 1. when
 ![\\mathcal V \\neq \\{v_0\\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathcal%20V%20%5Cneq%20%5C%7Bv_0%5C%7D "\mathcal V \neq \{v_0\}"),
 each
 ![p_l](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_l "p_l")
-has an independet variance 2. two components $p\_{v_i}, p\_{v_j} $ with
-in the same subtree indexed by
+has an independet variance 2. two components
+![p\_{v_i}, p\_{v_j}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p_%7Bv_i%7D%2C%20p_%7Bv_j%7D "p_{v_i}, p_{v_j}")
+with in the same subtree indexed by
 ![v \\in \\mathcal V](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v%20%5Cin%20%5Cmathcal%20V "v \in \mathcal V")
 are correlated, due to the same ancestor of
 ![v](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;v "v").

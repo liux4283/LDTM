@@ -1,9 +1,9 @@
 ---
-author: "Randy"
-date: "27 April 2022"
-output:
+title: 'TEST'
+output: 
   github_document:
-    pandoc_args: --webtex=https://latex.codecogs.com/png.latex?
+    pandoc_args: --webtex=https://ibm.codecogs.com/png.latex?
+always_allow_html: yes
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -88,14 +88,14 @@ OTU abundance data as multivariate count responses, and nutrient as covaraite
 
 ### Multinomial logistic regression
 
-\begin{split}
-& Y = (Y_1, ..., Y_K)^T\\
-& y = (y_1, ..., y_K)^T\\
-& \sum_{k=1}^K Y_k = \sum_{k=1}^K y_k\\
-& p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1\\
-& f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} 
-{\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}\\
-\end{split}
+
+
+$Y = (Y_1, ..., Y_K)^T$
+$y = (y_1, ..., y_K)^T$
+$\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k$
+$p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1$
+$f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} 
+{\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}$
 
 
 The link function is a multinomial-Poisson transformation
@@ -259,7 +259,7 @@ $$
 given $\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k; \ E[Y_l] = E[p_l] \sum_{k=1} ^Ky_k$
 
 Tips: 1. when $\mathcal V \neq \{v_0\}$, each $p_l$ has an independet variance
-2. two components $p_{v_i}, p_{v_j} $ with in the same subtree indexed by $v \in \mathcal V$ are correlated, due to the same ancestor of $v$.
+2. two components $p_{v_i}, p_{v_j}$ with in the same subtree indexed by $v \in \mathcal V$ are correlated, due to the same ancestor of $v$.
 
 ### Dirichlet Tree Multinomial Regression Model
 
@@ -267,22 +267,21 @@ a regression of $Y = (y_1, ..., y_K)^T$ on $p$ covariates $X_1, ... X_p$
 
 for each $v \in \mathcal V$ and $c \in \mathcal C_v$ we express $\log(\alpha_{vc})$ as a linear combination of the covariates.
 
-$$
-\begin{split}
-& \log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)\\
-& \log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)\\
-& X = (X_1, ..., X_p)^T\\
-& \beta_{vc} = (\beta_{vc1}, ..., \beta_{vcp})^T\\
-& y_i = (y_{i1}, ..., y_{iK})^T\\
-& x_i = (x_{i1}, ..., x_{ip})^T\\
-& b_{vc} = (b_{vc1}, ..., b_{vcq})^T\\
-& z_i = (z_{i1}, ..., z_{iq})^T\\
+
+$\log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)$
+$\log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)\\
+$X = (X_1, ..., X_p)^T\\
+$\beta_{vc} = (\beta_{vc1}, ..., \beta_{vcp})^T\\
+$y_i = (y_{i1}, ..., y_{iK})^T\\
+$x_i = (x_{i1}, ..., x_{ip})^T\\
+$b_{vc} = (b_{vc1}, ..., b_{vcq})^T\\
+$z_i = (z_{i1}, ..., z_{iq})^T\\
 \\
-& \beta_v = (\beta_{vc}, c \in \mathcal C_v)\\
-& \beta = (\beta_v, v \in \mathcal V) \\
+$\beta_v = (\beta_{vc}, c \in \mathcal C_v)\\
+$\beta = (\beta_v, v \in \mathcal V) \\
 \\
-& \beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)\\
-& \beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)
+$\beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)\\
+$\beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)
 \end{split}
 $$
 

@@ -84,25 +84,11 @@ covaraite
 
 ### Multinomial logistic regression
 
-![
-\\begin{split}
-& Y = (Y_1, ..., Y_K)^T\\\\
-& y = (y_1, ..., y_K)^T\\\\
-& \\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k\\\\
-& p = (p_1, ..., p_K)^T,\\ \\sum\_{k=1} ^K p_k =1\\\\
-& f_M(y;\\ p) = \\frac {\\Gamma ({\\sum\_{k=1}^K y_k + 1})} 
-{\\prod\_{k=1}^K \\Gamma ({y_k + 1})} \\prod\_{k=1}^Kp_k^{y_k}\\\\
-\\end{split}
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20Y%20%3D%20%28Y_1%2C%20...%2C%20Y_K%29%5ET%5C%5C%0A%26%20y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET%5C%5C%0A%26%20%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k%5C%5C%0A%26%20p%20%3D%20%28p_1%2C%20...%2C%20p_K%29%5ET%2C%5C%20%5Csum_%7Bk%3D1%7D%20%5EK%20p_k%20%3D1%5C%5C%0A%26%20f_M%28y%3B%5C%20p%29%20%3D%20%5Cfrac%20%7B%5CGamma%20%28%7B%5Csum_%7Bk%3D1%7D%5EK%20y_k%20%2B%201%7D%29%7D%20%0A%7B%5Cprod_%7Bk%3D1%7D%5EK%20%5CGamma%20%28%7By_k%20%2B%201%7D%29%7D%20%5Cprod_%7Bk%3D1%7D%5EKp_k%5E%7By_k%7D%5C%5C%0A%5Cend%7Bsplit%7D%0A "
-\begin{split}
-& Y = (Y_1, ..., Y_K)^T\\
-& y = (y_1, ..., y_K)^T\\
-& \sum_{k=1}^K Y_k = \sum_{k=1}^K y_k\\
-& p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1\\
-& f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} 
-{\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}\\
-\end{split}
-")
+![Y = (Y_1, ..., Y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y%20%3D%20%28Y_1%2C%20...%2C%20Y_K%29%5ET "Y = (Y_1, ..., Y_K)^T")
+![y = (y_1, ..., y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET "y = (y_1, ..., y_K)^T")
+![\\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k "\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k")
+![p = (p_1, ..., p_K)^T,\\ \\sum\_{k=1} ^K p_k =1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p%20%3D%20%28p_1%2C%20...%2C%20p_K%29%5ET%2C%5C%20%5Csum_%7Bk%3D1%7D%20%5EK%20p_k%20%3D1 "p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1")
+![f_M(y;\\ p) = \\frac {\\Gamma ({\\sum\_{k=1}^K y_k + 1})} {\\prod\_{k=1}^K \\Gamma ({y_k + 1})} \\prod\_{k=1}^Kp_k^{y_k}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f_M%28y%3B%5C%20p%29%20%3D%20%5Cfrac%20%7B%5CGamma%20%28%7B%5Csum_%7Bk%3D1%7D%5EK%20y_k%20%2B%201%7D%29%7D%20%7B%5Cprod_%7Bk%3D1%7D%5EK%20%5CGamma%20%28%7By_k%20%2B%201%7D%29%7D%20%5Cprod_%7Bk%3D1%7D%5EKp_k%5E%7By_k%7D "f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} {\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}")
 
 The link function is a multinomial-Poisson transformation
 
@@ -381,41 +367,13 @@ we express
 ![\\log(\\alpha\_{vc})](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29 "\log(\alpha_{vc})")
 as a linear combination of the covariates.
 
-![
-\\begin{split}
-& \\log(\\alpha\_{vc}) = X^T \\beta\_{vc} \\ \\ \\ \\ (2.a)\\\\
-& \\log(\\alpha\_{(i)vc}) = X_i^T \\beta\_{(i)vc} + Z_i^T b\_{(i){vc}}\\ \\ \\ \\ (2.b)\\\\
-& X = (X_1, ..., X_p)^T\\\\
-& \\beta\_{vc} = (\\beta\_{vc1}, ..., \\beta\_{vcp})^T\\\\
-& y_i = (y\_{i1}, ..., y\_{iK})^T\\\\
-& x_i = (x\_{i1}, ..., x\_{ip})^T\\\\
-& b\_{vc} = (b\_{vc1}, ..., b\_{vcq})^T\\\\
-& z_i = (z\_{i1}, ..., z\_{iq})^T\\\\
-\\\\
-& \\beta_v = (\\beta\_{vc}, c \\in \\mathcal C_v)\\\\
-& \\beta = (\\beta_v, v \\in \\mathcal V) \\\\
-\\\\
-& \\beta\_{vi} \| b\_{vi} = (\\beta\_{(i)vc} \| b\_{(i)vc}, c \\in \\mathcal C_v)\\\\
-& \\beta_i \| b\_{i} = (\\beta\_{(i)v}\| b\_{(i)v}, v \\in \\mathcal V)
-\\end{split}
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cbegin%7Bsplit%7D%0A%26%20%5Clog%28%5Calpha_%7Bvc%7D%29%20%3D%20X%5ET%20%5Cbeta_%7Bvc%7D%20%5C%20%5C%20%5C%20%5C%20%282.a%29%5C%5C%0A%26%20%5Clog%28%5Calpha_%7B%28i%29vc%7D%29%20%3D%20X_i%5ET%20%5Cbeta_%7B%28i%29vc%7D%20%2B%20Z_i%5ET%20b_%7B%28i%29%7Bvc%7D%7D%5C%20%5C%20%5C%20%5C%20%282.b%29%5C%5C%0A%26%20X%20%3D%20%28X_1%2C%20...%2C%20X_p%29%5ET%5C%5C%0A%26%20%5Cbeta_%7Bvc%7D%20%3D%20%28%5Cbeta_%7Bvc1%7D%2C%20...%2C%20%5Cbeta_%7Bvcp%7D%29%5ET%5C%5C%0A%26%20y_i%20%3D%20%28y_%7Bi1%7D%2C%20...%2C%20y_%7BiK%7D%29%5ET%5C%5C%0A%26%20x_i%20%3D%20%28x_%7Bi1%7D%2C%20...%2C%20x_%7Bip%7D%29%5ET%5C%5C%0A%26%20b_%7Bvc%7D%20%3D%20%28b_%7Bvc1%7D%2C%20...%2C%20b_%7Bvcq%7D%29%5ET%5C%5C%0A%26%20z_i%20%3D%20%28z_%7Bi1%7D%2C%20...%2C%20z_%7Biq%7D%29%5ET%5C%5C%0A%5C%5C%0A%26%20%5Cbeta_v%20%3D%20%28%5Cbeta_%7Bvc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29%5C%5C%0A%26%20%5Cbeta%20%3D%20%28%5Cbeta_v%2C%20v%20%5Cin%20%5Cmathcal%20V%29%20%5C%5C%0A%5C%5C%0A%26%20%5Cbeta_%7Bvi%7D%20%7C%20b_%7Bvi%7D%20%3D%20%28%5Cbeta_%7B%28i%29vc%7D%20%7C%20b_%7B%28i%29vc%7D%2C%20c%20%5Cin%20%5Cmathcal%20C_v%29%5C%5C%0A%26%20%5Cbeta_i%20%7C%20b_%7Bi%7D%20%3D%20%28%5Cbeta_%7B%28i%29v%7D%7C%20b_%7B%28i%29v%7D%2C%20v%20%5Cin%20%5Cmathcal%20V%29%0A%5Cend%7Bsplit%7D%0A "
-\begin{split}
-& \log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)\\
-& \log(\alpha_{(i)vc}) = X_i^T \beta_{(i)vc} + Z_i^T b_{(i){vc}}\ \ \ \ (2.b)\\
-& X = (X_1, ..., X_p)^T\\
-& \beta_{vc} = (\beta_{vc1}, ..., \beta_{vcp})^T\\
-& y_i = (y_{i1}, ..., y_{iK})^T\\
-& x_i = (x_{i1}, ..., x_{ip})^T\\
-& b_{vc} = (b_{vc1}, ..., b_{vcq})^T\\
-& z_i = (z_{i1}, ..., z_{iq})^T\\
-\\
-& \beta_v = (\beta_{vc}, c \in \mathcal C_v)\\
-& \beta = (\beta_v, v \in \mathcal V) \\
-\\
-& \beta_{vi} | b_{vi} = (\beta_{(i)vc} | b_{(i)vc}, c \in \mathcal C_v)\\
-& \beta_i | b_{i} = (\beta_{(i)v}| b_{(i)v}, v \in \mathcal V)
-\end{split}
-")
+![\\log(\\alpha\_{vc}) = X^T \\beta\_{vc} \\ \\ \\ \\ (2.a)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Clog%28%5Calpha_%7Bvc%7D%29%20%3D%20X%5ET%20%5Cbeta_%7Bvc%7D%20%5C%20%5C%20%5C%20%5C%20%282.a%29 "\log(\alpha_{vc}) = X^T \beta_{vc} \ \ \ \ (2.a)")
+$(*{(i)vc}) = X_i^T *{(i)vc} + Z_i^T b\_{(i){vc}}    (2.b)\\ $X = (X_1,
+…, X_p)^T\\ $*{vc} = (*{vc1}, …, *{vcp})^T\\ $y_i = (y*{i1}, …,
+y\_{iK})^T\\ $x_i = (x\_{i1}, …, x\_{ip})^T\\ $b\_{vc} = (b\_{vc1}, …,
+b\_{vcq})^T\\ $z_i = (z\_{i1}, …, z\_{iq})^T\\ \\ $*v = (*{vc}, c C_v)\\
+$= (*v, v V) \\ \\ $*{vi} \| b\_{vi} = (*{(i)vc} \| b*{(i)vc}, c C_v)\\
+$*i \| b*{i} = (*{(i)v}\| b*{(i)v}, v V) \\end{split} $$
 
 ![
 l\_{DTM}(\\beta) = \\log L\_{DTM}(\\beta) = \\sum\_{v \\in \\mathcal V} \\log L_v(\\beta_v) \\ \\ \\ \\ (3.a)

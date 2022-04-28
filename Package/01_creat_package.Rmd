@@ -209,8 +209,6 @@ build_readme()
 ```
 
 
-
-
 ```{r}
 usethis::use_data(toy_data0,
                   toy_data1, 

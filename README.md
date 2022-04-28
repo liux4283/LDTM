@@ -85,9 +85,13 @@ covaraite
 ### Multinomial logistic regression
 
 ![Y = (Y_1, ..., Y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y%20%3D%20%28Y_1%2C%20...%2C%20Y_K%29%5ET "Y = (Y_1, ..., Y_K)^T")
+
 ![y = (y_1, ..., y_K)^T](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;y%20%3D%20%28y_1%2C%20...%2C%20y_K%29%5ET "y = (y_1, ..., y_K)^T")
+
 ![\\sum\_{k=1}^K Y_k = \\sum\_{k=1}^K y_k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Csum_%7Bk%3D1%7D%5EK%20Y_k%20%3D%20%5Csum_%7Bk%3D1%7D%5EK%20y_k "\sum_{k=1}^K Y_k = \sum_{k=1}^K y_k")
-![p = (p_1, ..., p_K)^T,\\ \\sum\_{k=1} ^K p_k =1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p%20%3D%20%28p_1%2C%20...%2C%20p_K%29%5ET%2C%5C%20%5Csum_%7Bk%3D1%7D%20%5EK%20p_k%20%3D1 "p = (p_1, ..., p_K)^T,\ \sum_{k=1} ^K p_k =1")
+
+![p = (p_1, ..., p_K)^T, \\sum\_{k=1} ^K p_k =1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p%20%3D%20%28p_1%2C%20...%2C%20p_K%29%5ET%2C%20%5Csum_%7Bk%3D1%7D%20%5EK%20p_k%20%3D1 "p = (p_1, ..., p_K)^T, \sum_{k=1} ^K p_k =1")
+
 ![f_M(y;\\ p) = \\frac {\\Gamma ({\\sum\_{k=1}^K y_k + 1})} {\\prod\_{k=1}^K \\Gamma ({y_k + 1})} \\prod\_{k=1}^Kp_k^{y_k}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f_M%28y%3B%5C%20p%29%20%3D%20%5Cfrac%20%7B%5CGamma%20%28%7B%5Csum_%7Bk%3D1%7D%5EK%20y_k%20%2B%201%7D%29%7D%20%7B%5Cprod_%7Bk%3D1%7D%5EK%20%5CGamma%20%28%7By_k%20%2B%201%7D%29%7D%20%5Cprod_%7Bk%3D1%7D%5EKp_k%5E%7By_k%7D "f_M(y;\ p) = \frac {\Gamma ({\sum_{k=1}^K y_k + 1})} {\prod_{k=1}^K \Gamma ({y_k + 1})} \prod_{k=1}^Kp_k^{y_k}")
 
 The link function is a multinomial-Poisson transformation

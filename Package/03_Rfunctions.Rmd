@@ -1,0 +1,140 @@
+```{r}
+library("tidyverse")
+library("usethis")
+library("testthat")
+library("devtools")
+```
+
+```{r}
+use_r("00_utils.R")
+```
+
+Consider the assignment x <- Sys.time(). If you put this in a script, x tells you when the script was source()d. But if you put that same code in a package, x tells you when the package binary was built. 
+
+
+
+Any R code outside of a function is suspicious and should be carefully reviewed.
+
+
+
+```{r}
+system.file()
+```
+
+
+This works fine when the package is built and tested on the same machine. However, if the package is built on one machine and then used on another (as is the case with CRAN binary packages), then this will fail – the dependency will point to the wrong directory on the host.
+
+
+The heart of the solution is to make sure that system.file() is called from a function, at run time.
+
+
+Here is a non-exhaustive list of other functions that should be used with caution:
+
+```
+options()
+par()
+setwd()
+Sys.setenv()
+Sys.setlocale()
+set.seed()
+```
+
+
+Inside your function body, every time you do something that should be undone on exit, you immediately register the cleanup code with on.exit(expr, add = TRUE)
+
+use `on.exit(expr, add = TRUE)`
+
+```{r}
+neat <- function(x, sig_digits) {
+  op <- options(digits = sig_digits)
+  on.exit(options(op), add = TRUE)
+  print(x)
+}
+
+neater <- function(x, sig_digits) {
+  op <- options(digits = sig_digits)
+  withr::defer(options(op))
+  print(x)
+}
+
+pi
+
+neater(pi, 2)
+neat(pi, 2)
+
+pi
+```
+
+withr::defer() is basically a drop-in substitute for on.exit(), but with three key differences we explore below:
+
+Different default behaviour around the effect of a series of two or more calls
+Control over the environment the deferred events are associated with
+Ability to work with the global environment
+
+
+```{r}
+library("withr")
+
+defer_stack <- function() {
+  cat("put on socks\n")
+  defer(cat("take off socks\n"))
+  
+  cat("put on shoes\n")
+  defer(cat("take off shoes\n"))
+}
+
+defer_stack()
+```
+
+```{r}
+on_exit_last_one_wins <- function() {
+  cat("put on socks\n")
+  on.exit(cat("take off socks\n"))
+  
+  cat("put on shoes\n")
+  on.exit(cat("take off shoes\n"))
+}
+on_exit_last_one_wins()
+```
+
+
+```{r}
+defer_queue <- function() {
+  cat("Adam gets in line for ice cream\n")
+  defer(cat("Adam gets ice cream\n"), priority = "last")
+
+  cat("Beth gets in line for ice cream\n")
+  defer(cat("Beth gets ice cream\n"), priority = "last")
+}
+defer_queue()
+```
+
+
+
+Here is a typical sequence of calls when using devtools for package development:
+
+- Edit one or more files below R/.
+- document() (if you’ve made any changes that impact help files or  NAMESPACE)
+- load_all()
+- Run some examples interactively.
+- test() (or test_file())
+- check()
+
+
+
+```{r}
+x <- "This is a bullet •"
+y <- "This is a bullet \u2022"
+identical(x, y)
+#> [1] TRUE
+cat(stringi::stri_escape_unicode(x))
+#> This is a bullet \u2022
+
+
+getwd()
+tools::showNonASCIIfile("R/00_utils.R")
+```
+
+
+
+

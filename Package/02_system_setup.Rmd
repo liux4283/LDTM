@@ -1,0 +1,180 @@
+---
+title: "02_system_setup"
+author: "randy"
+date: '2022-04-24'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(testthat)
+library(usethis)
+library(tidyverse)
+```
+
+
+```{r}
+if (interactive()) {
+  suppressMessages(require(devtools))
+}
+
+# install.packages(c("devtools", 
+#                    "roxygen2", 
+#                    "testthat", 
+#                    "knitr"))
+
+
+if (interactive()) {
+  suppressMessages(require(devtools))
+}
+```
+
+"I am large, I contain multitudes." -  Walt Whitman, Song of Myself
+
+
+```{r}
+pkgload::load_all()
+use_devtools()
+
+## You can request a “(package) development situation report” with
+devtools::dev_sitrep()
+```
+
+All functions in usethis are made available by devtools. 
+So, once you attach devtools, you can use any function in usethis without qualification, i.e. just call use_testthat().
+
+If you choose to specify the namespace, such as when working in a more programmatic style, 
+then access usethis functions directly: do usethis::use_testthat() instead of devtools::use_testthat().
+
+```{r}
+install.packages("available")
+library(available)
+
+available("LDTM")
+# usethis::use_rstudio()
+```
+
+- Checks for validity.
+- Checks availability on CRAN, Bioconductor, and beyond.
+- Searches various websites to help you discover any unintended meanings. In an interactive session, the URLs you see above are opened in browser tabs.
+- Attempts to report whether name has positive or negative sentiment.
+
+```{r}
+# install.packages("fs")
+proj_sitrep()
+
+# testthat::test_path("LDTM")
+fs::path_package("LDTM")
+```
+
+# The package within
+
+```{r}
+now <- Sys.time()
+
+timestamp <- function(time) format(time, "%Y-%B-%d_%H-%M-%S")
+
+outfile_path <- function(infile) {
+  paste0(timestamp(now), 
+         "_", 
+         sub("(.*)([.]csv$)", 
+             "\\1_clean\\2",
+             infile))
+}
+
+write_csv(dat, outfile_path(infile))
+
+devtools::document()
+```
+
+None of our helper functions are actually available for use,
+even though we call library(delta)! 
+
+In contrast to source()ing a file of helper functions, 
+attaching a package does not dump its functions into the global workspace. 
+
+By default, functions in a package are only for internal use.
+
+We need to export functions so our users can call them. 
+
+In this book, we achieve this by putting @export 
+in the special roxygen comment above each function
+
+
+Dependencies must be declared in DESCRIPTION (and that’s not all). 
+
+Since we declared no dependencies, 
+R CMD check takes us at our word and tries to install our package 
+with only the base packages available, 
+which means this library(tidyverse) call fails.
+
+```{r}
+now <- Sys.time()
+timestamp <- function(time) format(time, "%Y-%B-%d_%H-%M-%S")
+
+# allow user to provide a time, but default to "now"
+outfile_path <- function(infile, time = Sys.time()) {
+  ts <- timestamp(time)
+  paste0(ts, "_", sub("(.*)([.]csv$)", "\\1_clean\\2", infile))
+}
+```
+
+But this approach is quite devastating in the context of a package. now <- Sys.time() is executed when the package is built. And never again. It is very easy to subconsciously assume your package code is re-evaluated when the package is installed, attached, or used. But it is not. 
+
+
+
+```{r}
+Sys.getlocale()
+Sys.setlocale(category = "LC_ALL", locale = "")
+
+format(Sys.time(), "%Y-%B-%d_%H-%M-%S")
+format(Sys.time(), "%Y-%B-%d_%H-%M-%S")
+
+
+timestamp <- function(time = Sys.time()) {
+  Sys.setlocale("LC_TIME", "C")
+  Sys.setenv(TZ = "UTC")
+  format(time, "%Y-%B-%d_%H-%M-%S")
+}
+
+timestamp()
+
+```
+
+```{r}
+# use withr::local_*() functions to keep the changes local to timestamp()
+timestamp <- function(time = Sys.time()) {
+  withr::local_locale(c("LC_TIME" = "C"))
+  withr::local_timezone("UTC")
+  format(time, "%Y-%B-%d_%H-%M-%S")
+}
+
+timestamp()
+
+# use the tz argument to format.POSIXct()
+timestamp <- function(time = Sys.time()) {
+  withr::local_locale(c("LC_TIME" = "C"))
+  format(time, "%Y-%B-%d_%H-%M-%S", tz = "UTC")
+}
+
+timestamp()
+
+# put the format() call inside withr::with_*()
+timestamp <- function(time = Sys.time()) {
+  withr::with_locale(
+    c("LC_TIME" = "C"),
+    format(time, "%Y-%B-%d_%H-%M-%S", tz = "UTC")
+  )
+}
+
+timestamp()
+```
+
+
+A good rule of thumb is to make the scope of such changes as narrow as is possible and practical. The tz argument of format() is the most surgical way to deal with the timezone, but nothing similar exists for LC_TIME. 
+
+
+
+
+
+

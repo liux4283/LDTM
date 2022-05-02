@@ -1,0 +1,111 @@
+
+```{r}
+usethis::use_tidy_description()
+load_all()
+```
+
+
+```{r}
+usethis::use_package("dplyr") # Default is "Imports"
+
+usethis::use_package("ggplot2", "Suggests")
+requireNamespace("ggplot2", quietly = TRUE)
+```
+
+
+```{r}
+# the suggested package is required 
+my_fun <- function(a, b) {
+  if (!requireNamespace("pkg", quietly = TRUE)) {
+    stop(
+      "Package \"pkg\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
+  # code that includes calls such as pkg::f()
+}
+
+# the suggested package is optional; a fallback method is available
+my_fun <- function(a, b) {
+  if (requireNamespace("pkg", quietly = TRUE)) {
+    pkg::f()
+  } else {
+    g()
+  }
+}
+```
+
+
+```{r}
+# the suggested package is required 
+my_fun <- function(a, b) {
+  rlang::check_installed("pkg", reason = "to use `my_fun()`")
+  # code that includes calls such as pkg::f()
+}
+
+# the suggested package is optional; a fallback method is available
+my_fun <- function(a, b) {
+  if (rlang::is_installed("pkg")) {
+    pkg::f()
+  } else {
+    g()
+  }
+}
+
+```
+
+
+These rlang functions have handy features for programming, 
+such as vectorization over pkg, 
+classed errors with a data payload, and, for check_installed(), 
+an offer to install the needed package in an interactive session.
+
+
+```{r}
+#' @examples
+#' if (require("maps")) {
+#'   nz <- map_data("nz")
+#'   # Prepare a map of NZ
+#'   nzmap <- ggplot(nz, aes(x = long, y = lat, group = group)) +
+#'     geom_polygon(fill = "white", colour = "black")
+#'
+#'   # Plot it in cartesian coordinates
+#'   nzmap
+#' }
+```
+
+
+An example is basically the only place where we would use `require()` inside a package.
+
+Another place you might use a suggested package is in a vignette.
+
+The tidyverse team generally writes vignettes as if all suggested packages are available.
+But if you choose to use suggested packages conditionally in your vignettes, 
+the knitr chunk options purl and eval may be useful for achieving this. 
+
+
+```{r}
+check()
+use_test("04_simulation")
+```
+
+
+```{r}
+# rm(list = c("simulate_DM", "simulate_DMLM", "simulate_DTM"))
+devtools::load_all()
+check()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

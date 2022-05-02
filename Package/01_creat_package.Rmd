@@ -2,7 +2,6 @@
 title: "01_creat_package"
 author: "randy"
 date: '2022-04-24'
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -142,8 +141,6 @@ This is very handy once a package has lots of files.
 
 ```{r}
 document()
-?Ytree
-?Score
 check()
 ```
 
@@ -183,16 +180,10 @@ library("covr")
 
 report()
 test()
-```
 
-
-```{r}
 # rename_files("treeY", "01_tree_structure")
-```
-
-
-```{r}
-use_github()
+## only for initiation
+# use_github()
 ```
 
 
@@ -206,28 +197,16 @@ use_github()
 ```{r}
 # use_readme_rmd()
 build_readme()
-```
 
-
-```{r}
 usethis::use_data(toy_data0,
                   toy_data1, 
                   internal = TRUE,
                   overwrite = TRUE)
 
-```
-
-
-
-
-```{r}
 usethis::use_git_remote("origin", 
                         url = NULL, 
                         overwrite = TRUE)
-```
 
-
-```{r}
 check()
 ```
 

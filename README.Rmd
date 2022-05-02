@@ -310,7 +310,6 @@ $pnl_{DTM}(\beta; \lambda, \gamma) = -l_{DTM}(\beta) + \lambda \bigg\{ (1- \gamm
 
     $\alpha_t = 2/(t+2)$
 
-
   $\beta_{vc}^{(t+1)}  = \underset {\beta_{vc}} {argmin} \Bigg[ \frac 1 2 \bigg \|\beta_{vc} - \Big\{\eta_{vc}^{(t)} - \frac 1 C \nabla l_{vc} (\eta_v^{(t)}) \Big\}\bigg\|_2^2 + \frac {\lambda_1} {C}\|\beta_{vc}\|_1 + \frac {\lambda_2} {C} \|\beta_{vc}\|_2 \Bigg]$
 
 

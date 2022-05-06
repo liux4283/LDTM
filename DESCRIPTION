@@ -21,6 +21,7 @@ Imports:
     GGMselect,
     lattice,
     MASS,
+    matrixcalc,
     MCMCpack,
     mvtnorm,
     purrr,

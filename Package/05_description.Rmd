@@ -85,8 +85,10 @@ the knitr chunk options purl and eval may be useful for achieving this.
 
 
 ```{r}
+devtools::load_all()
 check()
 use_test("04_simulation")
+use_package("matrixcalc")
 ```
 
 

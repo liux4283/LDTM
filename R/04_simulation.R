@@ -75,7 +75,7 @@ simulate_DM <- function(n_obs = 100,
   }
 
   if (!is.null(Sigma)) {
-    if (!is.positive.definite(Sigma)) {
+    if (!matrixcalc::is.positive.definite(Sigma)) {
       stop("Covaraince matrix must be a symetric positive definite matrix.")
     }
   }
@@ -162,6 +162,75 @@ simulate_DM <- function(n_obs = 100,
 ## }}}---------------
 
 
+## Xsim {{{---------------
+#' Title Simulate Design matrix and Indicators
+#' @param subject_sim
+#' @param tree
+#' @param num_leaf
+#' @param covariates_sim
+#' @param rho
+#' @param Sigma
+#' @param num_branch
+#' @param num_cov
+#' @param seed
+#'
+#' @return
+#' @export
+#'
+#' @examples
+Xsim<- function(subject_sim = 100,
+                tree = NULL,
+                num_leaf = 10,
+                covariates_sim = 50,
+                rho = NULL,
+                Sigma = NULL,
+                num_branch = 3,
+                num_cov = 5,
+                seed = 555) {
+
+  set.seed(seed)
+
+  if (!is.null(rho)) {
+    Sigma <- matrix(0, covariates_sim, covariates_sim)
+    Sigma <- rho^abs(row(Sigma) - col(Sigma))
+  }
+
+  tree.ex <- if (is.null(tree)) {
+    ape::rtree(n = num_leaf)
+  } else {tree}
+
+  # Get dimensions from tree
+  # Set number of parent nodes = #subtrees = #parentheses sets
+  V <- tree.ex$Nnode
+
+  # Set number of child nodes for each parent node
+  Cv <- table(tree.ex$edge[, 1])
+
+  # Set number of leaves (tips) in the tree
+  K <- length(tree.ex$tip.label)
+
+  # Set parameters
+  B_sim <- sum(Cv)
+
+  # Simulate covariates for selection
+  # Set true inclusion indicators
+  zeta_sim <- matrix(0, B_sim, covariates_sim)
+  for (i in sample(seq(1, B_sim), num_branch)) {
+    select <- sample(1:covariates_sim, num_cov)
+    zeta_sim[i, select] <- 1
+  }
+
+  X <- scale(mvtnorm::rmvnorm(subject_sim,
+                            rep(0, covariates_sim),
+                            Sigma))
+  zeta_sim
+  return(list(X = X,
+              zeta = zeta_sim,
+              Sigma = Sigma,
+              tree = tree.ex))
+}
+## }}}-----------------------
+
 
 
 ## simulate_DTM {{{---------------
@@ -192,12 +261,16 @@ simulate_DM <- function(n_obs = 100,
 #'
 #' @export
 #'
+#'
 simulate_DTM <- function(subject_sim = 100,
                          tree = NULL,
                          num_leaf = 10,
                          covariates_sim = 50,
                          rho = NULL,
                          Sigma = NULL,
+                         X = X,
+                         zeta_sim = zeta,
+                         rep = rep,
                          num_branch = 3,
                          num_cov = 5,
                          phi_min = 0.9,
@@ -260,7 +333,7 @@ simulate_DTM <- function(subject_sim = 100,
   }
 
   if (!is.null(Sigma)) {
-    if (!is.positive.definite(Sigma)) {
+    if (!matrixcalc::is.positive.definite(Sigma)) {
       stop("Bad input: Please provide positive definite covariance matrix.")
     }
   }
@@ -276,8 +349,10 @@ simulate_DTM <- function(subject_sim = 100,
     Sigma <- matrix(0, covariates_sim, covariates_sim)
     Sigma <- rho^abs(row(Sigma) - col(Sigma))
   }
-  ### }}}}-----------------
+  ####}}}}-----------------
 
+
+  set.seed(seed)
 
   # Simulate random DTM with phylogenetic tree
   # Relies on 'ape' package
@@ -299,15 +374,7 @@ simulate_DTM <- function(subject_sim = 100,
   B_sim <- sum(Cv)
 
   # Simulate covariates for selection
-  X <- scale(mvtnorm::rmvnorm(subject_sim,
-                              rep(0, covariates_sim),
-                              Sigma))
   # Set true inclusion indicators
-  zeta_sim <- matrix(0, B_sim, covariates_sim)
-  for (i in sample(seq(1, B_sim), num_branch)) {
-    select <- sample(1:covariates_sim, num_cov)
-    zeta_sim[i, select] <- 1
-  }
 
   truth <<- which(zeta_sim == 1)
 
@@ -328,36 +395,42 @@ simulate_DTM <- function(subject_sim = 100,
   # Look through the tree and separate to
   # get dirichlet parameters and then simulated
 
-  node_counts <- matrix(0,
-                        nrow = subject_sim,
-                        ncol = (V + K))
-  ## Why using those two values? 7500, 10000???-------
-  node_counts[, (K + 1)] <- sample(seq(7500, 10000),
-                                   subject_sim)
+  Y_list <- list()
 
-  for (b in (K + 1):(sum(Cv) + 1)) {
-    node <- which(tree.ex$edge[, 1] == b)
+  for (rm in seq_along(1:rep)) {
+      node_counts <- matrix(0,
+                            nrow = subject_sim,
+                            ncol = (V + K))
 
-    # Split inside by each subtree
-    inside_branches <- inside_sim[, node]
+      ## Why using those two values? 7500, 10000???-------
+      node_counts[, (K + 1)] <- sample(seq(7500, 10000),
+                                       subject_sim)
 
-    # Simulate probabilities for each subtree
-    prob_sim <- apply(inside_branches,
-                      1,
-                      function(x) {dirmult::rdirichlet(1, x)})
+      for (b in (K + 1):(sum(Cv) + 1)) {
+        node <- which(tree.ex$edge[, 1] == b)
 
-    # Simulate count data
-    for (i in 1:subject_sim) {
-      y <- t(rmultinom(1, node_counts[i, b], t(prob_sim)[i, ]))
-      node_counts[i, (tree.ex$edge[node, 2])] <- y
-    }
+        # Split inside by each subtree
+        inside_branches <- inside_sim[, node]
+
+        # Simulate probabilities for each subtree
+        prob_sim <- apply(inside_branches,
+                          1,
+                          function(x) {dirmult::rdirichlet(1, x)})
+
+        # Simulate count data
+        for (i in 1:subject_sim) {
+          y <- t(rmultinom(1, node_counts[i, b], t(prob_sim)[i, ]))
+          node_counts[i, (tree.ex$edge[node, 2])] <- y
+        }
+      }
+      Y <- node_counts[, 1:K]
+      Y_list[[rm]]<- Y
   }
 
-  Y <- node_counts[, 1:K]
   X <- scale(X)
 
   return(list(
-    Y = Y,
+    Y = Y_list,
     X = X,
     phi_sim = phi_sim,
     zeta_sim = zeta_sim,
@@ -417,7 +490,7 @@ simulate_DMLM <- function(subject_sim = 50,
   }
 
   if (!is.null(Sigma)) {
-    if (!is.positive.definite(Sigma)) {
+    if (!matrixcalc::is.positive.definite(Sigma)) {
       stop("Bad input: Please provide positive definite covariance matrix.")
     }
   }

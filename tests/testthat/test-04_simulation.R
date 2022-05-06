@@ -19,24 +19,44 @@ test_that("simulation for DM, DTM, DMLM", {
 })
 
 
-test_that("simulation for DM, DTM, DMLM", {
-  data_dtm <- simulate_DTM(subject_sim = 100,
-                          tree = NULL,
-                          num_leaf = 10,
-                          covariates_sim = 20,
-                          rho = 0.3,
-                          Sigma = NULL,
-                          num_branch = 3,
-                          num_cov = 10,
-                          phi_min = 0.9,
-                          phi_max = 1.2,
-                          seed = 555)
 
+
+test_that("simulation for Xsim and DTM", {
+  Xmat <- Xsim(subject_sim = 100,
+               tree = NULL,
+               num_leaf = 10,
+               covariates_sim = 50,
+               rho = 0.5,
+               Sigma = NULL,
+               num_branch = 3,
+               num_cov = 5,
+               seed = 555)
+  str(Xmat)
+  View(Xmat$Sigma)
+
+  data_dtm <- simulate_DTM(subject_sim = 100,
+                           tree = Xmat$tree,
+                           num_leaf = 10,
+                           covariates_sim = 50,
+                           rho = 0.5,
+                           X = Xmat$X,
+                           zeta_sim = Xmat$zeta,
+                           rep = 5,
+                           num_branch = 3,
+                           num_cov = 5,
+                           phi_min = 0.9,
+                           phi_max = 1.2,
+                           seed = 555)
+
+  str(data_dtm$Y)
   str(data_dtm)
   # View(data_dtm$X)
-  # View(data_dtm$Y)
+  View(data_dtm$Y)
+  View(data_dtm$Y[[1]])
+  View(data_dtm$X)
   # View(data_dtm$phi_sim)
   # View(data_dtm$zeta_sim)
   # View(data_dtm$phi_sim %*% t(data_dtm$zeta_sim))
+  phytools::plotTree(Xmat$tree, node.numbers = T)
   phytools::plotTree(data_dtm$tree, node.numbers = T)
 })

@@ -96,6 +96,18 @@ use_r("data")
 use_test("01_tree")
 use_test("02_likelihood")
 use_test("03_dirichlet")
+
+
+use_package("tidyverse", type = "depends")
+use_package("purrr")
+use_package("dplyr")
+use_package("tidyr")
+use_package("readr")
+use_package("purrr")
+use_package("tibble")
+use_package("stringr")
+use_package("forcats")
+use_package("matrixcalc")
 ```
 
 

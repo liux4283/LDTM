@@ -151,6 +151,8 @@ Just as it is entirely possible to author .Rd files "by hand", you can manage NA
 
 ```{r}
 install()
+library(devtools)
+load_all()
 ```
 
 Note also that your package’s documentation won’t be properly wired up until it has been formally built and installed. This polishes off niceties like the links between help files and the creation of a package index.

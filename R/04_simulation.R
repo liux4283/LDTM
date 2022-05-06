@@ -1,4 +1,9 @@
-### simulate_DM {{{---------------
+# There are three functions in this file: ---------------------
+## - Simulate Dirichlet-Multinomial Regression Model
+## - Simulate Dirichlet-Multinomial Tree Regression Model
+## - Simulate DMLMbvs model Doubly Multivariate Linear Model
+
+## simulate_DM {{{---------------
 #' Title Simulate Dirichlet-Multinomial Regression Model
 #'
 #' @description # This function can be used to simulate DM data.
@@ -154,12 +159,12 @@ simulate_DM <- function(n_obs = 100,
     Sigma = Sigma
   ))
 }
-### }}}---------------
+## }}}---------------
 
 
 
 
-### simulate_DTM {{{---------------
+## simulate_DTM {{{---------------
 #
 #' Title Simulate Dirichlet-Multinomial-Tree Regression Model
 #' @description Wrapper function for the Rcpp code to simulate DTM data
@@ -214,7 +219,7 @@ simulate_DTM <- function(subject_sim = 100,
   rlang::check_installed("ape", reason = "to use `simulate_DM()`")
   rlang::check_installed("GGMselect", reason = "to use `simulate_DM()`")
 
-  ##### Defense {{{{-----------------
+  #### Defense {{{{-----------------
   # Simulate data if there is no tree, X, or Y
   if (subject_sim %% 1 != 0 | subject_sim < 0) {
     stop("Bad input: number of subjects should be a positive integer")
@@ -271,7 +276,7 @@ simulate_DTM <- function(subject_sim = 100,
     Sigma <- matrix(0, covariates_sim, covariates_sim)
     Sigma <- rho^abs(row(Sigma) - col(Sigma))
   }
-  #### }}}}-----------------
+  ### }}}}-----------------
 
 
   # Simulate random DTM with phylogenetic tree
@@ -360,11 +365,11 @@ simulate_DTM <- function(subject_sim = 100,
     Sigma = Sigma
   ))
 }
-### }}}---------------
+## }}}---------------
 
 
 
-### simulate_DMLM {{{------------
+## simulate_DMLM {{{------------
 # Code to simulate data for DMLMbvs model (Doubly Multivariate Linear Model)
 #' Title simulate data for DMLMbvs model
 #' @param subject_sim
@@ -507,7 +512,7 @@ simulate_DMLM <- function(subject_sim = 50,
 }
 
 
-### }}} ----------
+## }}} ----------
 
 
 

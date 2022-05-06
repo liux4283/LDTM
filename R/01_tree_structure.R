@@ -117,8 +117,6 @@ Ytree <- function(Y, treeinf) {
 
 
 
-
-
 # 1.4 Btree {{{-------------
 #' Title: Create the Coefficients for Each Interior Knots Matrix
 #'

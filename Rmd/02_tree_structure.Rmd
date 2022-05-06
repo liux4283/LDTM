@@ -1,0 +1,302 @@
+---
+title: "02_tree_structure"
+author: "randy"
+date: '2022-04-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction to phylogenies in R
+
+The codes are from 
+
+[Martin R. Smith](https://cran.r-project.org/web/packages/TreeTools/vignettes/load-trees.html)
+and 
+[Liam J. Revell.](http://www.phytools.org/eqg/Exercise_3.2/)
+and 
+[Rileigh Dowling](https://rstudio-pubs-static.s3.amazonaws.com/675027_20485b2a006a49ba9a07edb5034c37cd.html)
+
+
+## phylo structure
+
+```{r eval=FALSE, include=FALSE}
+## install CRAN Task View for phylogenetics
+#  CRAN are relevant for tasks related to a certain topic.
+install.packages('ctv')
+library(ctv) 
+update.views('Phylogenetics')
+install.views('Phylogenetics')
+## update.views('Phylogenetics')
+```
+```{r fig.height=5, fig.width=5}
+library(ape)
+## simulate a phylogeny
+tree <- rtree(n = 28)
+plot(tree, edge.width = 2)
+
+# str(tree)
+# View(tree)
+```
+
+
+a list of class "phylo"
+
+- the core of how an object of class "phylo" encodes phylogenetic
+
+- let's use a simple case: a tree with 5 tips & no edge lengths
+
+
+```{r fig.height=2, fig.width=2}
+tree <- read.tree(text = "(((A, B), (C, D)), E);")
+plot(tree, 
+     type = "cladogram", 
+     edge.width = 2)
+```
+
+```{r}
+tree$edge
+tree$tip.label
+tree$Nnode
+```
+
+```{r fig.height=2, fig.width=2}
+plot(tree, 
+     edge.width = 2, 
+     label.offset = 0.1, 
+     type = "cladogram")
+nodelabels()
+tiplabels()
+```
+
+- all of the relationship information among the taxa in the tree is containing in the starting & ending nodes for each edge
+
+- edges that share a common starting node number are descended from an immediate common ancestor
+
+- object of class "phylo"
+
+- useMethods with plot.phylo
+
+- storing trees in the same way across different packages for  interoperability
+
+
+## Writing & reading phylogenetic trees
+
+```{r}
+## write a tree file and save it
+write.tree(tree, "data/example.tre")
+cat(readLines("data/example.tre"))
+
+## load phytools
+library(phytools)
+writeNexus(tree, "data/example.nex")
+cat(readLines("data/example.nex"), sep = "\n")
+```
+
+## Simulating, plotting, extracting clades, & dropping tips
+
+
+```{r fig.height=4, fig.width=4}
+set.seed(1)
+## simulate a birth-death tree using phytools
+?pbtree 
+               ##  birth rate or speciation rate 
+tree <- pbtree(b = 1, 
+               ## death rate or extincition rate 
+               d = 0.2, 
+               ## sample size for simulation
+               n = 40)
+
+plotTree(tree, setEnv = TRUE)
+nodelabels()
+tiplabels()
+```
+
+```{r fig.height=3, fig.width=3}
+## extract the descendeed tree from #62
+tt62 <- extract.clade(tree, 62)
+plotTree(tt62)
+nodelabels()
+tiplabels()
+```
+
+
+```{r fig.height=3, fig.width=3}
+## now drop 10 tips from the tree 
+## (I'm going to pick them at random)
+dtips <- sample(tree$tip.label, 10)
+dt <- drop.tip(tree, dtips)
+
+## now plot the cut tree
+plotTree(dt)
+nodelabels()
+tiplabels()
+```
+
+
+```{r fig.height=8, fig.width=4}
+## we could also, say, 
+## drop all tips that go extinct before the present
+## this is a fun way, 
+## but not the only way to do this:
+et <- fancyTree(tree, 
+                type = "droptip", 
+                tip = getExtinct(tree),
+                cex = 0.7)
+nodelabels()
+tiplabels()
+```
+
+```{r}
+## now this is the extinction tree
+print(et)
+View(et)
+```
+
+
+# Binary & polytomous trees
+
+"ape" and most other phylogenetics packages are equipped to handle phylogenies that are binary or multifurcating.
+
+```{r fig.height=2, fig.width=2}
+t1 <- read.tree(text = "((A, B, C), D);")
+plot(t1, type = "cladogram")
+
+## check whether it is a binary tree 
+is.binary.tree(t1)  
+
+## randomly resolve polytomies
+t2 <- multi2di(t1)
+plot(t2, type = "cladogram")
+```
+
+## Miscellaneous 
+
+
+```{r fig.height=4, fig.width=4}
+## this is the original tree
+plotTree(tree, node.numbers = T)
+
+op <- par(mfrow = c(2, 2))
+
+## first, rotate about node #50
+rt.50 <- rotate(tree, 50)
+plotTree(rt.50)
+
+## now rotate all nodes
+rt.all <- rotateNodes(tree, "all")
+plotTree(rt.all)
+
+## let's re-root the tree at node #67
+rr.67 <- root(tree, node = 67)
+plotTree(rr.67)
+
+## this creates a trifurcation 
+## at the root we could instead re-root at
+## along an edge
+rr.62 <- reroot(tree, 62, position = 0.5 * tree$edge.length[which(tree$edge[, 
+    2] == 62)])
+plotTree(rr.62)
+
+par(op)
+```
+
+Comparing trees
+
+```{r}
+## check if tree & rt.all are equal
+all.equal(tree, rt.all)
+## [1] TRUE
+
+
+## check if tree & rr.62 are equal
+all.equal(tree, rr.62)
+## [1] FALSE
+
+
+## check if unrooted tree & rr.62 are equal
+all.equal(unroot(tree), unroot(rr.62))
+```
+
+Generating multiple trees
+
+```{r fig.height=4, fig.width=4}
+library(tidyverse)
+
+## simulate 10 pure-birth trees
+trees <- pbtree(n = 6, nsim = 9, scale = 1)
+op <- par(mfrow = c(3, 3))
+## 10 phylogenetic trees
+trees %>% map(plot)
+par(op)
+
+
+## round the edge lengths of the tree to 3 digits
+trees <- roundBranches(trees, 1)
+## write to file
+write.tree(trees, file = "data/example.trees")
+cat(readLines("data/example.trees"), sep = "\n")
+```
+
+# Building a distance-based tree 
+
+```{r fig.height=2, fig.width=4}
+library(phangorn)
+
+set.seed(55)
+p <- 10
+
+A <- matrix(runif(p ^ 2) * 2 - 1, 
+            ncol = p) 
+M <- t(A) %*% A %>%
+  cov2cor()
+
+# ## now build a matrix
+# M <- matrix(runif(p * p, 0, 1),
+#             nrow = p,
+#             byrow = T)
+# diag(M) <- 1
+# # View(lower.tri(M))
+# 
+# ## make the lower triangle 
+# ## the same as the upper
+# M[lower.tri(M)] <- t(M[upper.tri(M)])
+# View(M)
+
+row.names(M) <- LETTERS[1:p]
+colnames(M) <- LETTERS[1:p]
+
+## this is the dis-similarity matrix
+D <- 1 - M
+
+## convert to distrance format
+Dist <- as.dist(D)
+str(Dist)
+
+## build a neighbor - joining tree
+Tnj <- ape::nj(Dist)
+# ?nj # Neighbor-Joining Tree Estimatio
+
+op <- par(mfrow = c(1, 2))
+
+plot(Tnj, "unrooted")
+## plot with a root
+plot(Tnj)
+
+par(op)
+```
+
+Neighbor Joining is one of the most common ways 
+to build a tree using molecular data 
+that’s been converted to sequences.
+
+its one of the options within BLAST.
+
+```{r fig.height=2, fig.width=2}
+Upgma <- phangorn::upgma(Dist)
+# View(Upgma)
+plot(Upgma)
+```
+

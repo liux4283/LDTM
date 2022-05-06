@@ -1,0 +1,125 @@
+---
+title: "03_lambda"
+author: "randy"
+date: '2022-04-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+
+## Generalized cross validation
+
+$$
+GCV(\hat f) = {\frac 1 N} \sum_{i=1}^N
+\bigg[ \frac {y_i - \hat f(x_i)} 
+{1 - tr(S)/N} \bigg]^2
+$$
+
+```{r}
+set.seed(7732)
+
+time <- 3
+subject <- 5
+species <- 4
+
+## this is the X matrix
+Gender <- rbinom(5, 2, 0.5)
+Hiv <- rbinom(5, 2, 0.5)
+Age <- rpois(5, 10)
+
+ID <- c("001", "002", "003", "007", "911")
+id <- rep(ID, each = 4 * 3)
+gender <- rep(Gender, each = 4 * 3)
+age <- rep(Age, each = 4 * 3)
+hiv <- rep(Hiv, each = 4 * 3)
+
+visit <- rep(rep(1:3, each = 4), 5)
+species <- rep(c("A", "B", "C", "D"), time * subject)
+
+## this will be the Z matrix
+# Random <- rnorm(5, mean = 0, sd = 1)
+# random <- rep(Random, each = 4 * 3)
+
+
+data <- cbind(id, intercept = 1, 
+              gender, age,
+              hiv, visit, 
+              species) %>%
+  as.data.frame() %>%
+  mutate(age = as.numeric(age) + as.numeric(visit)) %>%
+  dplyr::select(ID = id, everything())
+View(data)
+```
+
+
+```{r}
+library(MASS)
+
+##       intercept, gender, age,   hiv, 
+betaA <- c(intercept = 1.5, gender = 0, age = 0.5, hiv = 0.5)
+betaB <- c(intercept = -0.5, gender = -1.5, age = 0, hiv = 0.5)
+betaC <- c(intercept = 0.5, gender = 0.5, age = 0.5, hiv = 0)
+betaD <- c(intercept = 0.5, gender = -2.5, age = 0.5, hiv = -0.5)
+beta <- rbind(betaA, betaB, betaC, betaD) %>%
+  as.data.frame() %>%
+  mutate(species = c("A", "B", "C", "D")) %>%
+  nest(beta = c("intercept", "gender", "age", "hiv"))
+
+bmu <- 
+  ##  for 5 different individual
+  mvrnorm(n = 5, 
+          ## for species 
+          ##    A,     B,     C,    D 
+          mu = c(A = 0,  B = 0,  C = 0,   D = 0),
+          Sigma = diag(x = c(2, 2, 5, 10),
+                       nrow = 4,
+                       ncol = 4)) %>%
+  round(2) %>%
+  as.data.frame() 
+rownames(bmu) <- ID
+
+View(bmu)
+View(beta)
+bmu <- bmu %>%
+  rownames_to_column("ID") %>%
+  pivot_longer(c(A, B, C, D), 
+               names_to = "species", 
+               values_to = "random") 
+
+data1 <- full_join(data, bmu) 
+data2 <- full_join(data1, beta)
+
+```
+
+
+```{r}
+data3 <- data2 %>%
+  nest(X = c("intercept", "gender", "age", "hiv")) %>%
+  mutate(X = as.matrix(X, nrow = 1),
+         beta = as.matrix(beta, ncol = 1)) 
+
+fixed <- map2_dfc(.x = data3$beta,
+                  .y = data3$X,
+                  ~ as.matrix(.x) %*% as.matrix(as.numeric(unlist(.y)))) %>%
+  t() 
+
+eta <- fixed + data1$random %>%
+  round(2)
+y <- map(eta, 
+         ~rpois(1, exp(.))) %>%
+  t()
+
+data4 <- cbind(data1, fixed = fixed, 
+               eta = eta, y = as.numeric(y)) %>%
+  as.data.frame() %>%
+  mutate(y = as.integer(y))
+
+
+write.csv(data4, file = "data/toy_data.csv")
+```
+

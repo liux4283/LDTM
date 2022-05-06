@@ -1,0 +1,419 @@
+---
+title: "01_diversity"
+author: "randy"
+date: '2022-03-16'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+
+
+```{r setup}
+## Clear existing caregiver_clean and graphics
+rm(list=ls())
+graphics.off()
+
+library(vegan)
+
+library(ggplot2)
+library(RGraphics)
+library(gridExtra)
+library(grid)
+
+library(here)
+library(janitor)
+library(tidyverse)
+
+library(reshape2)
+library(Matrix)
+
+# library(diagonals)
+# library(matrixStats)
+# library(matrixTests)
+# library(exactRankTests)
+
+# devtools::session_info()
+```
+
+
+```{r}
+data <- here::here("data", "bios7732_data.csv") %>%
+  read.csv() %>% 
+  janitor::clean_names() %>%
+  unite("info", c("participantid", "heu", "visit"), 
+        sep = "_", remove = F) %>%
+  column_to_rownames("info")
+
+data0 <- data %>%
+  dplyr::select(-library, -participantid, -reads)
+  
+# View(data0)
+```
+
+
+```{r}
+# data_heu <- data0 %>%
+#   filter(heu == "HEU") %>%
+#   dplyr::select(-heu)
+# data_heu2 <- data_heu %>%
+#   filter(visit == 2) %>%
+#   dplyr::select(-visit)
+# data_heu3 <- data_heu %>%
+#   filter(visit == 3) %>%
+#   dplyr::select(-visit)
+# data_heu4 <- data_heu %>%
+#   filter(visit == 4) %>%
+#   dplyr::select(-visit)
+# 
+# data_huu <- data0 %>%
+#   filter(heu == "HUU") %>%
+#   dplyr::select(-heu)
+# data_huu2 <- data_huu %>%
+#   filter(visit == 2) %>%
+#   dplyr::select(-visit)
+# data_huu3 <- data_huu %>%
+#   filter(visit == 3) %>%
+#   dplyr::select(-visit)
+# data_huu4 <- data_huu %>%
+#   filter(visit == 4) %>%
+#   dplyr::select(-visit)
+```
+
+
+```{r}
+## the plot for group HEU ------------------------------------------------------
+data1 <- data0 %>%
+  filter(heu == "HEU") %>%
+  dplyr::select(-visit, -heu)
+
+pcoa1 <- data1 %>%
+  vegdist(method = "morisita") %>% 
+  cmdscale() %>% # morisita 
+  as.data.frame() %>%
+  select(dim1 = `V1`, dim2 = `V2`)
+
+# View(pcoa1)
+
+sp1 <- envfit(pcoa1, data1)
+sp1_df <- cbind(sp1$vectors$arrows*sqrt(sp1$vectors$r), 
+                sp1$vectors$pvals) %>%
+  as.data.frame()
+
+sp1_df$species <- rownames(sp1_df)
+colnames(sp1_df) <- c("dim1", "dim2", 
+                      "pvals", "species")
+# sp1_df <- sp1_df[sp1_df$pvals < .005, ] 
+
+ds1 <- cbind(pcoa1, data1) %>%
+  rownames_to_column(var = "info") %>%
+  # set up the Method and ID
+  separate(info, 
+           into = c("id", "group", "visit"), 
+           sep = "_") 
+
+plot_heu <- ds1 %>%
+  ggplot(aes(x = dim1, 
+             y = dim2, 
+             group = id, 
+             # shape = group,
+             color = visit)) +
+  geom_line(col = "black", 
+            linetype = "dotted") +
+  geom_point(size = 3) +
+  guides(col = F, 
+         size = F) +
+  geom_segment(data = sp1_df,
+               aes(x = 0, 
+                   xend = dim1, 
+                   y = 0, 
+                   yend = dim2),
+               arrow = arrow(length = unit(0.5, "cm"),
+                             angle = 5),
+               colour = "black", 
+               stat = "identity",
+               inherit.aes = FALSE) +
+  geom_text(data = sp1_df,
+            aes(x = dim1, y = dim2, 
+                label = species),
+            inherit.aes = FALSE, 
+            size = 5) +
+  coord_fixed() +
+  xlim(-0.7, 0.7) +
+  ylim(-0.7, 0.7) +
+  theme_bw() +
+  ggthemes::scale_colour_wsj("colors6") +
+  ggtitle("Ordination Biplot (diff coordination)", 
+          "HEU") +
+  labs(y = "Component2",
+       x = "Component1") +
+  theme(text = element_text(size = 10))
+```
+
+
+```{r}
+data2 <- data0 %>%
+  filter(heu == "HUU") %>%
+  dplyr::select(-visit, -heu)
+
+pcoa2 <- data2 %>%
+  vegdist(method = "morisita") %>% 
+  cmdscale() %>% # morisita 
+  as.data.frame() %>%
+  select(dim1 = `V1`, dim2 = `V2`)
+
+# View(pcoa1)
+
+sp2 <- envfit(pcoa2, data2)
+sp2_df <- cbind(sp2$vectors$arrows*sqrt(sp2$vectors$r), 
+                sp2$vectors$pvals) %>%
+  as.data.frame()
+
+sp2_df$species <- rownames(sp2_df)
+colnames(sp2_df) <- c("dim1", "dim2", 
+                      "pvals", "species")
+# sp2_df <- sp2_df[sp2_df$pvals < .005, ] 
+
+ds2 <- cbind(pcoa2, data2) %>%
+  rownames_to_column(var = "info") %>%
+  # set up the Method and ID
+  separate(info, 
+           into = c("id", "group", "visit"), 
+           sep = "_") 
+
+plot_huu <- ds2 %>%
+  ggplot(aes(x = dim1, 
+             y = dim2, 
+             group = id, 
+             # shape = group,
+             color = visit)) +
+  geom_line(col = "black", 
+            linetype = "dotted") +
+  geom_point(size = 3) +
+  guides(col = F, 
+         size = F) +
+  geom_segment(data = sp2_df,
+               aes(x = 0, 
+                   xend = dim1, 
+                   y = 0, 
+                   yend = dim2),
+               arrow = arrow(length = unit(0.5, "cm"),
+                             angle = 5),
+               colour = "black", 
+               stat = "identity",
+               inherit.aes = FALSE) +
+  geom_text(data = sp2_df,
+            aes(x = dim1, y = dim2, 
+                label = species),
+            inherit.aes = FALSE, 
+            size = 5) +
+  coord_fixed() +
+  xlim(-1, 1) +
+  ylim(-1, 1) +
+  theme_bw() +
+  ggthemes::scale_colour_wsj("colors6") +
+  ggtitle("Ordination Biplot (diff coordination)", 
+          "HUU") +
+  labs(y = "Component2",
+       x = "Component1") +
+  theme(text = element_text(size = 10))
+```
+
+```{r}
+cbind(hue = sp1_df, huu = sp2_df) %>%
+  as.data.frame() %>%
+  mutate_if(is.numeric, ~round(., digits = 4)) %>%
+  select(-hue.species, -huu.species)
+```
+
+
+```{r fig.height=7, fig.width=15}
+grid.arrange(plot_huu, plot_heu, ncol = 2)
+```
+
+
+```{r}
+pcoa0 <- data0 %>%
+  dplyr::select(-visit, -heu) %>%
+  vegdist(method = "morisita") %>% 
+  cmdscale() %>% # morisita 
+  as.data.frame() %>%
+  select(dim1 = `V1`, dim2 = `V2`)
+
+# View(pcoa1)
+
+sp0 <- envfit(pcoa1, data1)
+sp0_df <- cbind(sp0$vectors$arrows*sqrt(sp0$vectors$r), 
+                sp0$vectors$pvals) %>%
+  as.data.frame()
+
+sp0_df$species <- rownames(sp0_df)
+colnames(sp0_df) <- c("dim1", "dim2", 
+                      "pvals", "species")
+# sp0_df <- sp0_df[sp0_df$pvals < .005, ] 
+
+ds0 <- cbind(pcoa0, data0) %>%
+  rownames_to_column(var = "info") %>%
+  # set up the Method and ID
+  separate(info, 
+           into = c("id", "group", "visit"), 
+           sep = "_") 
+
+plot_both_heu <- ds0 %>%
+  filter(group == "HEU") %>%
+  ggplot(aes(x = dim1, 
+             y = dim2, 
+             group = id, 
+             # shape = group,
+             color = visit)) +
+  geom_line(col = "black", 
+            linetype = "dotted") +
+  geom_point(size = 3) +
+  guides(col = F, 
+         size = F) +
+  geom_segment(data = sp0_df,
+               aes(x = 0, 
+                   xend = dim1, 
+                   y = 0, 
+                   yend = dim2),
+               arrow = arrow(length = unit(0.5, "cm"),
+                             angle = 5),
+               colour = "black", 
+               stat = "identity",
+               inherit.aes = FALSE) +
+  geom_text(data = sp0_df,
+            aes(x = dim1, y = dim2, 
+                label = species),
+            inherit.aes = FALSE, 
+            size = 5) +
+  coord_fixed() +
+  xlim(-0.7, 0.7) +
+  ylim(-0.7, 0.7) +
+  theme_bw() +
+  ggthemes::scale_colour_wsj("colors6") +
+  ggtitle("Ordination Biplot (same coordination)", 
+          "HEU") +
+  labs(y = "Component2",
+       x = "Component1") +
+  theme(text = element_text(size = 10))
+
+plot_both_huu <- ds0 %>%
+  filter(group == "HUU") %>%
+  ggplot(aes(x = dim1, 
+             y = dim2, 
+             group = id, 
+             # shape = group,
+             color = visit)) +
+  geom_line(col = "black", 
+            linetype = "dotted") +
+  geom_point(size = 3) +
+  guides(col = F, 
+         size = F) +
+  geom_segment(data = sp0_df,
+               aes(x = 0, 
+                   xend = dim1, 
+                   y = 0, 
+                   yend = dim2),
+               arrow = arrow(length = unit(0.5, "cm"),
+                             angle = 5),
+               colour = "black", 
+               stat = "identity",
+               inherit.aes = FALSE) +
+  geom_text(data = sp0_df,
+            aes(x = dim1, y = dim2, 
+                label = species),
+            inherit.aes = FALSE, 
+            size = 5) +
+  coord_fixed() +
+  xlim(-0.7, 0.7) +
+  ylim(-0.7, 0.7) +
+  theme_bw() +
+  ggthemes::scale_colour_wsj("colors6") +
+  ggtitle("Ordination Biplot (same coordination)", 
+          "HUU") +
+  labs(y = "Component2",
+       x = "Component1") +
+  theme(text = element_text(size = 10))
+```
+
+
+```{r fig.height=7, fig.width=15}
+grid.arrange(plot_both_huu, plot_both_heu, ncol = 2)
+```
+
+
+
+```{r fig.height=5, fig.width=5}
+datar <- data %>%
+  select(-library) %>%
+  mutate_at(vars("bacteroidetes":"verrucomicrobia"), 
+            .funs = funs(. / reads)) %>% 
+  select(-reads) %>%
+  pivot_longer(cols = bacteroidetes:verrucomicrobia) 
+
+# unique(data$participantid)
+
+# View(datar)
+# plots <- map(unique(data$participantid), 
+#     ~filter(datar, participantid == .) %>%
+#       as.data.frame()) %>%
+#   map(~ggplot(., aes(x = visit, 
+#                        y = value, 
+#                        fill = name)) + 
+#          ## should have saved this function
+#          ## probably add a ggsave() to pdf directly
+#          geom_bar(stat = "identity") +
+#          theme_bw() +
+#          ggthemes::scale_fill_tableau("Classic Cyclic", direction = -1) + 
+#          ## so far the best color compositions for bar plot
+#          ## "Jewel Bright" only contains seven color
+#          ggthemes::scale_colour_tableau("Classic Cyclic", direction = -1) + 
+#          ## the tableau is in the ggthemes
+#          labs(x = "Time of Visits") +
+#          labs(y = "Relative Abundance") +
+#          labs(x = "visit times") +
+#          labs(y = "relative abundance") +
+#          labs(title = unique(.$participantid)) +
+#          ylim(0, 1))
+# 
+# plots
+```
+
+
+```{r fig.height=30, fig.width=30}
+plots <- datar %>%
+  ggplot(aes(x = visit,
+             y = value, 
+             fill = name)) + 
+         ## should have saved this function
+         ## probably add a ggsave() to pdf directly
+         geom_bar(stat = "identity") +
+         theme_bw() +
+         ggthemes::scale_fill_tableau("Classic Cyclic", direction = -1) + 
+         ## so far the best color compositions for bar plot
+         ## "Jewel Bright" only contains seven color
+         ggthemes::scale_colour_tableau("Classic Cyclic", direction = -1) + 
+         ## the tableau is in the ggthemes
+         labs(x = "Time of Visits") +
+         labs(y = "Relative Abundance") +
+         labs(x = "visit times") +
+         labs(y = "relative abundance") +
+         ylim(0, 1)
+
+plots + facet_wrap(~participantid) 
+
+# ggsave("barplot_total.pdf", limitsize = FALSE)
+```
+
+
+
+
+

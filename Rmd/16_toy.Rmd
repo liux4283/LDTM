@@ -1,0 +1,315 @@
+---
+title: "16_toy"
+author: "randy"
+date: '2022-04-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+load("data/simu_data.RData")
+source("12_Hongzhe_Dismo.R")
+source("13_Dirichlet_tree_Tao.R")
+source("14_functions_group_Tao.R")
+source("15_T_group_Tao.R")
+```
+
+```{r}
+toy_tree <- list()
+toy_tree$edge <- 
+  matrix(as.integer(c(5, 6,
+                      6, 1,
+                      6, 2,
+                      5, 7,
+                      7, 3,
+                      7, 4)), 
+         ncol = 2,
+         byrow = T)
+
+toy_tree$Nnode <- as.integer(3)
+toy_tree$tip.label <- c("A", "B", "C", "D")
+
+toy_tree$edge.length <- as.numeric(c(0.00410, 0.00103, 
+                                     0.00601, 0.06729, 
+                                     0.00638, 0.24653))
+toy_tree$node.label <- as.character(c("", "0.007", "0.016"))
+
+attr(toy_tree, "class") <- as.character("phylo")
+attr(toy_tree, "order") <- as.character("cladewise")
+
+(info <- tree_extract(toy_tree))
+```
+
+
+```{r}
+data <- here::here("data", "toy_data.csv") %>%
+  read.csv(row.names = 1)
+data1 <- data %>%
+  select(ID, visit, species, y) %>%
+  pivot_wider(names_from = species,
+              values_from = y) %>%
+  unite("id_time", c(ID, visit), sep = "_") %>%
+  column_to_rownames("id_time")
+dim(data1) # 15 * 4
+# View(data1)
+```
+
+
+
+## source("13_Dirichlet_tree_Tao.R") part1 
+### tree_extract and Y_tree
+
+```{r}
+tree_y <- Y_tree(Y = data1,
+                 treeinfo = info)
+(tree_y)
+## use 4 coefficients
+tree_X <- data %>%
+  dplyr::select(ID, intercept, gender, age, hiv) %>%
+  unique() %>%
+  cbind(V1 = rnorm(15, 2, 2),
+        V2 = rnorm(15, 0, 5),
+        V3 = rnorm(15, -1, 5))
+
+
+dim(tree_X)
+# View(XY.train[[1]]$X) ##102
+# dim(XY.train[[1]]$Y) ##28
+```
+
+
+
+## source("12_Hongzhe_Dismo.R")
+
+```{r}
+## inital values for betas
+
+
+B <- matrix(runif(15 * 8, 0.1, 0.5), nrow = 15, ncol = 8)
+tree_beta <- B_tree(tree_y, B)
+# View(tree_beta)
+
+length(tree_y)
+for (j in seq_along(1:length(tree_y))) {
+  (like[j] <- Loglik(Y = tree_y[[j]],
+      X = tree_X,
+      b = tree_beta[[j]],
+      model = "dirmult"))
+  print(like)
+}
+sum(like)
+
+# Normal(Xbeta + b_iZ, ZDZ)
+# V = simga2 I + ZDZ
+# bi for every individuals; bi 
+
+### V matrix needs to be esitmated....
+
+
+# Score <- function(Y, X, b, model)
+Score(Y = tree_y[[j]],
+       ## also not the tree_y
+       ## the raw taxa outcomes
+      X = tree_X, 
+        ## here it is not the tree_beta 
+        ## but the B matrix
+      b = tree_beta[[j]],  
+      model = "dirmult")
+
+## is not used in the functions
+Hessian(Y = tree_y[[j]],
+       ## also not the tree_y
+       ## the raw taxa outcomes
+      X = tree_X, 
+        ## here it is not the tree_beta 
+        ## but the B matrix
+      b = tree_beta[[j]],  
+      model = "dirmult")
+```
+
+
+
+## source("13_Dirichlet_tree_Tao.R") part2
+
+
+```{r}
+# Loglik_Dirichlet_tree <- function(Ytree, X, B, model)
+Loglik_Dirichlet_tree(Ytree = tree_y,
+                      X = tree_X,
+                      B = B, 
+                      model = "dirmult")
+
+Score_Dirichlet_tree(Ytree = tree_y,
+                      X = tree_X,
+                      B = B, 
+                      model = "dirmult")
+
+pred_Y(Y = data1, 
+       X = tree_X, 
+       B = B,
+       treeinfo = info) 
+
+
+```
+
+## source("14_functions_group_Tao.R")
+
+```{r}
+## f_fun <- function(Ytree, X, B, model, alpha, lambda) 
+## to calculate the likelihood
+f_fun(Ytree = tree_y,
+      X = tree_X,
+      B = B,
+      model = "dirmult",
+      alpha = 0.5,
+      lambda = 2)
+```
+
+$$
+\begin{split}
+x^+ & = {{argmin}_z} \ \tilde {g_t}(z) + h(z) \ \ \ (*)\\
+& = {argmin}_z \ g(x) + \nabla g(x)^T (z − x ) + 
+\frac 1 {2t} \| z−x \| ^2_2 + h(z) \ \ \ \ (* *)\\
+& = argmin_z \frac 1 {2t} 
+\| z − (x − t \nabla g(x)) \|^2_2 + h(z)\\
+g(x − tG_t(x)) & > g(x) − t\nabla g(x)^T G_t(x) + 
+\frac t 2 \|G_t(x)\|^2_2
+\end{split}
+$$
+
+proved in the lecture, if Lipschitz smoothing works here, 
+
+
+```{r}
+## elastic net ----------------------
+QL_fun <- function(Ytree, X, W, model, B1, 
+                   grad, alpha, lambda, L){
+  
+  # Ytree = tree_y
+  # X = tree_X
+  # X <- as.matrix(X)
+  # W = B
+  # model = "dirmult"
+  # B1 = (B + 0.1)[, -1]
+  # grad = grad
+  # alpha = 0.5
+  # lambda = 2
+  # L = 1
+  
+  W1 <- W[, -1]
+  ## the first and second terms as g(x) aka the risk
+  QL1 <- -Loglik_Dirichlet_tree(Ytree, X, W, model) + 
+    sum(diag(grad %*% t(as.matrix(B1 - W1))))
+  dim(B1)
+  dim(W1) ## 15 * 7
+  dim(grad) ## 6 * 7
+  # View(grad)
+  # View(Sc)
+  
+  
+  ## this is the penalty term
+  QL2 <- sum(abs(B1)) * lambda * (1 - alpha)
+  if (alpha != 0) {
+    QL2 <- QL2 + sum(apply(B1, 2, norm2)) * lambda * alpha
+  }
+
+  ## if the Lipschitz smoothing works for this function
+  ## this is the third term in the equation
+  QL3 <- sum((B1 - W1)^2) * L / 2
+
+  (QL <- QL1 + QL2 + QL3)
+  return(QL)
+}
+
+Sc <- Score_Dirichlet_tree(Ytree = tree_y,
+                      X = tree_X,
+                      B = B, 
+                      model = "dirmult")
+
+
+QL_try <- try(QL <- QL_fun(Ytree = tree_y,
+                 X = tree_X,
+                 W = B,
+                 model = "dirmult",
+                 B1 = (B + 0.1)[, -1],
+                 grad = grad,
+                 alpha = 0.5,
+                 lambda = 2,
+                 L = 1))
+
+QL_fun(Ytree = tree_y,
+       X = tree_X,
+       W = B,
+       model = "dirmult",
+       B1 = (B + 0.1)[, -1],
+       grad = grad,
+       alpha = 0.5,
+       lambda = 2,
+       L = 1)
+
+
+# lambda_fun <- function(grad, L, alpha, lambda)
+## return betas???
+lambda_fun(grad = grad, 
+           L = 1, 
+           alpha = 0.5,
+           lambda = 2)
+View(lambda_fun)
+
+## return the lambda maximized the likelihood
+lambda_raw_fun(grad = grad,
+               L = 1, 
+               alpha = 1, 
+               lambda.raw = 90, 
+               fac1 = 1.1, 
+               fac2 = 0.96) 
+
+
+```
+
+
+
+
+source("15_T_group_Tao.R")
+
+
+```{r}
+set.seed(1)
+type <- "group"
+alpha <- c(0)
+nfolds <- 5
+CV <- F
+
+output <- est.Aic <- 
+  est.Bic <- list()
+
+min.i.Aic <- min.i.Bic <- 
+  err.pred.Aic <- err.pred.Bic <-
+  matrix(, repl.times, length(alpha))
+
+cvtree <- cv_T_group_fun(data1, 
+               tree_X, 
+               info, 
+               alpha = 0.5, 
+               nfolds = nfolds, 
+               CV = T)
+
+
+
+tp <- T_group_path(Y = data1, 
+                   X = tree_X, 
+                   info, 
+                   alpha = 0.5,
+                   cutoff = 0.8, 
+                   model = "dirmult",
+                   err.conv = 1e-3, 
+                   iter.max = 30,
+                   L.init = NULL, 
+                   lambda.max = NULL, 
+                   lambda.min = NULL) 
+
+```
+

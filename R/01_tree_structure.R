@@ -1,6 +1,7 @@
+
 # 1.1 belong {{{---------
-#' Title: Provide each elements from setB belongs to set membership of setA
-#' @description `belong` provides whether each element of setB belong to setA
+#' Title: Provide each elements from set B belongs to set membership of set A
+#' @description `belong` provides whether each element of set B belong to set A
 #'
 #' @details
 #' (TBF)

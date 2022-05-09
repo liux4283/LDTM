@@ -129,7 +129,6 @@ exists("Btree",
        where = env,
        # where = globalenv(), 
        inherits = FALSE)
-
 ```
 
 
@@ -222,10 +221,14 @@ usethis::use_git_remote("origin",
                         overwrite = TRUE)
 
 check()
+load_all()
 ```
 
 
 
+```{r}
+l
+```
 
 
 

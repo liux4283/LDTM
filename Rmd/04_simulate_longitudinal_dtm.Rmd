@@ -1,0 +1,91 @@
+---
+title: "01_toy"
+author: "randy"
+date: '2022-04-22'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# clear the entire environment
+rm(list = ls())
+
+# clear all data frames from environment
+rm(list=ls(all=TRUE)[sapply(mget(ls(all=TRUE)), class) == "data.frame"])
+
+# clear all lists from environment
+rm(list=ls(all=TRUE)[sapply(mget(ls(all=TRUE)), class) == "list"])
+```
+
+
+```{r}
+devtools::load_all()
+check()
+```
+
+First, let's look at the default `Xsim()` results
+
+```{r}
+Xmat <- Xsim(subject_sim = 2, 
+             tree = NULL,
+             num_leaf = 4,
+             covariates_sim = 10,
+             rho = 0.2,
+             Sigma = NULL,
+             num_branch = 2,
+             num_cov = 5, 
+             seed = 555)
+
+(X0 <- Xmat$X)
+(I0 <- Xmat$zeta)
+
+## we can always manually 
+Xmat$zeta <- matrix(1, nrow = 6, ncol = 10)
+dim(X0); dim(I0)
+
+tree0 <- Xmat$tree
+phytools::plotTree(tree0, node.numbers = T)
+
+?Ytree
+```
+
+```{r}
+data_dtm <- simulate_DTM(subject_sim = 2,
+                        tree = Xmat$tree,
+                        num_leaf = 4,
+                        covariates_sim = 10,
+                        rho = 0.2,
+                        X = Xmat$X,
+                        zeta_sim = Xmat$zeta,
+                        rep = 5,
+                        num_branch = 2,
+                        num_cov = 5,
+                        phi_min = 0.9,
+                        phi_max = 1.2,
+                        seed = 555)
+
+str(data_dtm$Y)
+str(data_dtm)
+# View(data_dtm$X)
+View(data_dtm$Y)
+View(data_dtm$Y[[1]])
+View(data_dtm$zeta)
+# View(data_dtm$phi_sim)
+# View(data_dtm$zeta_sim)
+# View(data_dtm$phi_sim %*% t(data_dtm$zeta_sim))
+phytools::plotTree(Xmat$tree, node.numbers = T)
+phytools::plotTree(data_dtm$tree, node.numbers = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+

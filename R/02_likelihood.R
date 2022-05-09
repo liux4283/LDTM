@@ -240,7 +240,6 @@ f_fun <- function(Ytree, X, B, model, alpha, lambda) {
 
 
 
-
 # 2.7 Prediction {{{------------------
 #' Title Predicted values for Outcomes
 #'

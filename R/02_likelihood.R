@@ -2,9 +2,9 @@
 # 2.1 Loglikehood {{{------------
 #' Title: Likelihood function for Dirichlet and Multinomial models
 #'
-#' @param Y
-#' @param X
-#' @param b
+#' @param Y = the vector of count outcomes 
+#' @param X `matrix` the matrix of covariates 
+#' @param b 
 #' @param model
 #'
 #' @return

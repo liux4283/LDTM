@@ -17,7 +17,7 @@ and its children branches.
 }
 \description{
 The Dirichlet Multinational Tree model requires the
-outcomes at each interior knots. The original taxa outcomes will not be applied directly
+outcomes at each interior nodes. The original taxa outcomes will not be applied directly
 into the regression models. The regression model is built
 above is for each interior knot and its children. The information from
 \code{treeinfo} will be used to build the membership for each interior cluster.

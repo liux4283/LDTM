@@ -7,6 +7,12 @@
 Loglik(Y, X, b, model)
 }
 \arguments{
+\item{Y}{= the vector of count outcomes}
+
+\item{X}{\code{matrix} the matrix of covariates}
+
+\item{b}{}
+
 \item{model}{}
 }
 \value{

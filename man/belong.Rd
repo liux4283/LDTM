@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_tree_structure.R
 \name{belong}
 \alias{belong}
-\title{Title: Provide each elements from setB belongs to set membership of setA}
+\title{Title: Provide each elements from set B belongs to set membership of set A}
 \usage{
 belong(setA, subB)
 }
@@ -16,7 +16,7 @@ A list of logic values indicates the membership;
 the length of this list is the same as subB
 }
 \description{
-\code{belong} provides whether each element of setB belong to setA
+\code{belong} provides whether each element of set B belong to set A
 }
 \details{
 (TBF)

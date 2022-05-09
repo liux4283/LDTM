@@ -23,8 +23,8 @@ a given leaf or inner node (by col).
 }
 }
 \description{
-\code{treeinfo()} provides the basic information from a phylo tree
-without extract the distance.
+\code{treeinfo()} provides the basic information from a phylogenic tree
+without the distances.
 }
 \details{
 This is adapted from \link{Tao Wang and Hongyu Zhao (2017)}

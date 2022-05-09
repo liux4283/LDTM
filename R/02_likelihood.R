@@ -1,15 +1,21 @@
 
 # 2.1 Loglikehood {{{------------
-#' Title: Likelihood function for Dirichlet and Multinomial models
+#' Title: Likelihood function for Dirichlet and Multinomial Tree models
+#' @details
+#' This is adapted from [Tao Wang and Hongyu Zhao (2017)]
+#' This function is used to extract the log likelihood from Dirichlet & Multinomial models
+#' The log-likelihood value of a regression model is a way to measure the goodness of fit for a model.
 #'
-#' @param Y vector of count outcomes
+#' @param Y `matrix` of count outcomes
 #' @param X `matrix` of covariates
-#' @param b vector of beta coefficients
+#' @param b `matrix` of dimensions p x q; where p = number of covariates
+#'                                        & q = number of branches.
+#'                                        Note: When q=1, we are conditioning the likelihood on that specific branch
 #' @param model `character` type of model to use for the Log Likelihood. Options are
 #'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
 #'                         Dirichlet = "dir")
 #'
-#' @return
+#' @return The value of the Log-likelihood for the desired model.
 #' @export
 #'
 #'
@@ -39,14 +45,22 @@ Loglik <- function(Y, X, b, model) {
 
 # 2.2 Score {{{--------------
 #' Title Score function for Dirichlet and Multinomial models
+#'@details The score function takes the derivative of the log-likelihood function.
+#'         This can be used to maximize the log likelihood by setting the score to 0.
 #'
-#' @param Y
-#' @param X
-#' @param b
-#' @param model
 #'
-#' @return
+#' @param Y `matrix` of count outcomes
+#' @param X `matrix` of covariates
+#' @param b `matrix` of dimensions p x q; where p = number of covariates
+#'                                        & q = number of branches.
+#'                                        Note: When q=1, we are conditioning the likelihood on that specific branch
+#' @param model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
+#'
+#' @return The score from the model of choice
 #' @export
+#'
 #'
 Score <- function(Y, X, b, model) {
   # Compute the Score function at b

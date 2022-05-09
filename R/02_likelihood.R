@@ -1,6 +1,6 @@
 
 # 2.1 Loglikehood {{{------------
-#' Title: Likelihood function for Dirichlet and Multinomial Tree models
+#' Title: Likelihood function for Dirichlet and Multinomial models
 #' @details
 #' This is adapted from [Tao Wang and Hongyu Zhao (2017)]
 #' This function is used to extract the log likelihood from Dirichlet & Multinomial models
@@ -44,8 +44,9 @@ Loglik <- function(Y, X, b, model) {
 
 
 # 2.2 Score {{{--------------
-#' Title Score function for Dirichlet and Multinomial models
-#'@details The score function takes the derivative of the log-likelihood function.
+#' Title: Score function for Dirichlet and Multinomial models
+#'
+#' @details The score function takes the derivative of the log-likelihood function.
 #'         This can be used to maximize the log likelihood by setting the score to 0.
 #'
 #'
@@ -89,14 +90,22 @@ Score <- function(Y, X, b, model) {
 
 
 # 2.3 Hessian {{{-----------------
-#' Title Hessian matrix for Dirichlet and Multinomial models
+#' Title: Hessian matrix for Dirichlet and Multinomial models
 #'
-#' @param Y
-#' @param X
-#' @param b
-#' @param model
+#' @details
+#' Creates the Hessian matrix which computes the diagonal of the hessian matrix at b
 #'
-#' @return
+#' @param Y `matrix` of count outcomes
+#' @param X `matrix` of covariates
+#' @param b `matrix` of dimensions p x q; where p = number of covariates
+#'                                        & q = number of branches.
+#'                                        Note: When q=1, we are conditioning the likelihood on that specific branch
+#' @param model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
+#'
+#'
+#' @return The Hessian matrix; which is an q x p (q is the # of branches and p is the number of covariates)
 #' @export
 #'
 Hessian <- function(Y, X, b, model){
@@ -127,14 +136,20 @@ Hessian <- function(Y, X, b, model){
 
 
 # 2.4 Loglik_Dirichlet_tree{{{----------------
-#' Title Log likelihood for Dirichlet Tree
+#' Title: Log likelihood for Dirichlet Tree
 #'
-#' @param Ytree
-#' @param X
-#' @param B
-#' @param model
+#' @details Calculating the log likelihood for the Dirichlet tree
 #'
-#' @return
+#' @param Ytree is the tree information from the `Ytree` function.
+#' Input will be a set of n * 2 matrices, each of which represent the an interior knot
+#' and its children branches
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param B a list of covariate coefficients
+#' @param  model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
+#'
+#' @return Will return the log likelihood for the Dirichlet Tree model for each of the nodes
 #' @export
 #'
 Loglik_Dirichlet_tree <- function(Ytree, X, B, model) {
@@ -154,14 +169,18 @@ Loglik_Dirichlet_tree <- function(Ytree, X, B, model) {
 
 
 # 2.5 Score_Dirichlet_tree {{{------------------
-#' Title
+#' Title: Score function for Dirichlet Tree
 #'
-#' @param Ytree
-#' @param X
-#' @param B
-#' @param model
+#' @param Ytree is the tree information from the `Ytree` function.
+#' Input will be a set of n * 2 matrices, each of which represent the an interior knot
+#' and its children branches
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param B a list of covariate coefficients
+#' @param  model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
 #'
-#' @return
+#' @return The Score of the Dirichlet tree for each of the nodes
 #' @export
 #'
 Score_Dirichlet_tree <- function(Ytree, X, B, model) {
@@ -183,23 +202,25 @@ Score_Dirichlet_tree <- function(Ytree, X, B, model) {
 ## thinking about change the name
 ## this is the penalized likelihood
 
-#' Title Penalized log-likelihood for Dirichlet Tree Multinomial Regression
+#' Title: Penalized log-likelihood for Dirichlet Tree Multinomial Regression
 #'
-#' @param Ytree
-#' @param X
-#' @param B
-#' @param model
-#' @param alpha
-#' @param lambda
+#' @param Ytree is the tree information from the `Ytree` function.
+#' Input will be a set of n * 2 matrices, each of which represent the an interior knot
+#' and its children branches
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param B a list of covariate coefficients
+#' @param  model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
+#' @param alpha `numeric` the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+#'                       to investigate the covariate selection
+#' @param lambda `numeric`the tuning parameter
 #'
-#' @return
+#' @return The penalized (negative) log likelihood method that estimates the parameters and selects coviariates simultaneously
+#'
 #' @export
 #'
-f_fun <- function(Ytree,
-                  X, B,
-                  model,
-                  alpha,
-                  lambda) {
+f_fun <- function(Ytree, X, B, model, alpha, lambda) {
 
   loglik <- Loglik_Dirichlet_tree(Ytree, X, B, model)
 
@@ -223,12 +244,21 @@ f_fun <- function(Ytree,
 # 2.7 Prediction {{{------------------
 #' Title Predicted values for Outcomes
 #'
-#' @param Y
-#' @param X
-#' @param B
-#' @param treeinfo
+#' @param Y `matrix` of count outcomes
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param B list of covariate coefficients
+#' @param treeinfo A list objects necessary information from the `tree`.
+#' The output has the following properties:
 #'
-#' @return
+#' * Nnodes: `integer` the number of nodes in the given "phylo" tree
+#' * Ntips: `integer` the number of tips/leaves in the given "phylo" tree
+#' * Tredge: `matrix` the matrix for the edges information;
+#' each row represents the two ends of the edges
+#' * TreeMat: `matrix` the matrix consists of logical values;
+#' the binary value of each taxa (by row) belongs to
+#' a given leaf or inner node (by col).
+#'
+#' @return The predicted Y outcome which is a vector of outcomes at the taxa level
 #' @export
 #'
 pred_Y <- function(Y, X, B, treeinfo) {

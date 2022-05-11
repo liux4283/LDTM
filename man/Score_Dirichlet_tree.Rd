@@ -2,16 +2,26 @@
 % Please edit documentation in R/02_likelihood.R
 \name{Score_Dirichlet_tree}
 \alias{Score_Dirichlet_tree}
-\title{Title}
+\title{Title: Score function for Dirichlet Tree}
 \usage{
 Score_Dirichlet_tree(Ytree, X, B, model)
 }
 \arguments{
-\item{model}{}
+\item{Ytree}{is the tree information from the \code{Ytree} function.
+Input will be a set of n * 2 matrices, each of which represent the an interior knot
+and its children branches}
+
+\item{X}{\code{matrix} of nxp  which is the number of subjects by number of covariates}
+
+\item{B}{a list of covariate coefficients}
+
+\item{model}{\code{character} type of model to use for the Log Likelihood. Options are
+(Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+Dirichlet = "dir")}
 }
 \value{
-
+The Score of the Dirichlet tree for each of the nodes
 }
 \description{
-Title
+Title: Score function for Dirichlet Tree
 }

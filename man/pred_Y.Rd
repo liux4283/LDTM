@@ -7,10 +7,26 @@
 pred_Y(Y, X, B, treeinfo)
 }
 \arguments{
-\item{treeinfo}{}
+\item{Y}{\code{matrix} of count outcomes}
+
+\item{X}{\code{matrix} of nxp  which is the number of subjects by number of covariates}
+
+\item{B}{list of covariate coefficients}
+
+\item{treeinfo}{A list objects necessary information from the \code{tree}.
+The output has the following properties:
+\itemize{
+\item Nnodes: \code{integer} the number of nodes in the given "phylo" tree
+\item Ntips: \code{integer} the number of tips/leaves in the given "phylo" tree
+\item Tredge: \code{matrix} the matrix for the edges information;
+each row represents the two ends of the edges
+\item TreeMat: \code{matrix} the matrix consists of logical values;
+the binary value of each taxa (by row) belongs to
+a given leaf or inner node (by col).
+}}
 }
 \value{
-
+The predicted Y outcome which is a vector of outcomes at the taxa level
 }
 \description{
 Title Predicted values for Outcomes

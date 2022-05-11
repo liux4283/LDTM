@@ -2,16 +2,29 @@
 % Please edit documentation in R/02_likelihood.R
 \name{Hessian}
 \alias{Hessian}
-\title{Title Hessian matrix for Dirichlet and Multinomial models}
+\title{Title: Hessian matrix for Dirichlet and Multinomial models}
 \usage{
 Hessian(Y, X, b, model)
 }
 \arguments{
-\item{model}{}
+\item{Y}{\code{matrix} of count outcomes}
+
+\item{X}{\code{matrix} of covariates}
+
+\item{b}{\code{matrix} of dimensions p x q; where p = number of covariates
+& q = number of branches.
+Note: When q=1, we are conditioning the likelihood on that specific branch}
+
+\item{model}{\code{character} type of model to use for the Log Likelihood. Options are
+(Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+Dirichlet = "dir")}
 }
 \value{
-
+The Hessian matrix; which is an q x p (q is the # of branches and p is the number of covariates)
 }
 \description{
-Title Hessian matrix for Dirichlet and Multinomial models
+Title: Hessian matrix for Dirichlet and Multinomial models
+}
+\details{
+Creates the Hessian matrix which computes the diagonal of the hessian matrix at b
 }

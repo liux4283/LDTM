@@ -20,69 +20,155 @@ rm(list=ls(all=TRUE)[sapply(mget(ls(all=TRUE)), class) == "list"])
 
 
 ```{r}
+library(pheatmap)
+
 devtools::load_all()
-check()
+# check()
 ```
 
 First, let's look at the default `Xsim()` results
 
 ```{r}
-Xmat <- Xsim(subject_sim = 2, 
-             tree = NULL,
-             num_leaf = 4,
-             covariates_sim = 10,
-             rho = 0.2,
-             Sigma = NULL,
-             num_branch = 2,
-             num_cov = 5, 
-             seed = 555)
+subject_sim = 100
+num_leaf = 20
+covariates_sim = 20
+rho = 0.2
+num_cov = 15
+seed = 222
+num_branch = 18
+
+
+Xmat <- Xsim(subject_sim = subject_sim, 
+             # tree = NULL,
+             num_leaf = num_leaf,
+             covariates_sim = covariates_sim,
+             rho = rho,
+             # Sigma = NULL,
+             num_cov = num_cov, 
+             seed = seed)
 
 (X0 <- Xmat$X)
 (I0 <- Xmat$zeta)
-
-## we can always manually 
-Xmat$zeta <- matrix(1, nrow = 6, ncol = 10)
-dim(X0); dim(I0)
-
-tree0 <- Xmat$tree
-phytools::plotTree(tree0, node.numbers = T)
-
-?Ytree
 ```
 
+
+
 ```{r}
-data_dtm <- simulate_DTM(subject_sim = 2,
+## we can always manually 
+tree0 <- Xmat$tree
+phytools::plotTree(tree0, node.numbers = T)
+```
+
+
+Now we have the working design matrix $X^*$, this is the $X$ by removing the first column;
+and the $\zeta^*$ matrix now must include the first column of 1s.
+
+```{r}
+Xstar <- Xmat$X[, -1]
+Xmat$zeta <- rbinom(38 * 20, 
+                    size = 1, 
+                    0.1) %>%
+  matrix(nrow = 38, ncol = 20)
+Xmat$zeta[, 1] <- 1
+```
+
+
+
+```{r}
+data_dtm <- simulate_DTM(subject_sim = subject_sim,
                         tree = Xmat$tree,
-                        num_leaf = 4,
-                        covariates_sim = 10,
+                        num_leaf = num_leaf,
+                        covariates_sim = covariates_sim,
                         rho = 0.2,
                         X = Xmat$X,
                         zeta_sim = Xmat$zeta,
                         rep = 5,
-                        num_branch = 2,
-                        num_cov = 5,
+                        num_cov = num_cov,
                         phi_min = 0.9,
                         phi_max = 1.2,
-                        seed = 555)
+                        seed = seed)
 
-str(data_dtm$Y)
-str(data_dtm)
-# View(data_dtm$X)
-View(data_dtm$Y)
-View(data_dtm$Y[[1]])
-View(data_dtm$zeta)
-# View(data_dtm$phi_sim)
-# View(data_dtm$zeta_sim)
-# View(data_dtm$phi_sim %*% t(data_dtm$zeta_sim))
+# View(data_dtm)
+```
+
+
+first of all check whether the tree created earlier and the tree used are the same;
+
+
+The tree is the same; also it has `r num_leaf` tips and `r num_branch` branches, 
+so to the end, the final $\zeta$ and $\beta$ matrix will have `r num_branch + num_leaf` rows.
+
+because we have `r num_cov` but with the first colunm as random intercept, 
+the final $\beta$ will be a `r num_cov - 1` $\times$ `r num_cov` matrix;
+
+
+```{r}
 phytools::plotTree(Xmat$tree, node.numbers = T)
 phytools::plotTree(data_dtm$tree, node.numbers = T)
 ```
 
+## check the structure of the outcomes.
+
+```{r}
+str(data_dtm)
+# View(data_dtm$X)
+
+# print(data_dtm$Y)
+# print(data_dtm$zeta)
+# print(data_dtm$phi_sim)
+# View(data_dtm$phi_sim)
+# View(data_dtm$zeta_sim)
+# View(data_dtm$phi_sim %*% t(data_dtm$zeta_sim))
+```
 
 
+The final $\beta$ will be the original one by removing the first column.
+the final $\beta$ will be a `r num_cov - 1` $\times$ `r num_cov` matrix;
+
+```{r fig.height=3, fig.width=1.5}
+betas0 <- data_dtm$phi_sim[, -1]
 
 
+colors <- c(colorRampPalette(c("red", "black"), bias = 2)(100),
+            colorRampPalette(c("black", "green"), bias = 2)(100))
 
+?colorRampPalette
+
+pheatmap(
+  mat = as.matrix(betas0), 
+  color = colors,
+  ## colors from line86
+  border_color = "grey60",
+  cluster_rows = F,  
+  show_colnames = T,
+  show_rownames = T,
+  drop_levels = F,
+  fontsize = 10,
+  frontsize_row = 8,
+  frontsize_col = 8,
+  main  = "Heatmap Clustered")
+
+# pheatmap(
+#   mat = as.matrix(data_dtm$Y[[1]]), 
+#   color = colorRampPalette(c("black", "red"), bias = 2)(100),
+#   ## colors from line86
+#   border_color = "grey60",
+#   cluster_rows = F, 
+#   cluster_cols = F, 
+#   show_colnames = T,
+#   show_rownames = T,
+#   drop_levels = F,
+#   fontsize = 10,
+#   frontsize_row = 8,
+#   frontsize_col = 8,
+#   main  = "Heatmap Clustered")
+```
+
+
+```{r}
+
+
+```
 
 
 

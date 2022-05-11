@@ -177,7 +177,6 @@ simulate_DM <- function(n_obs = 100,
 #' @return
 #' @export
 #'
-#' @examples
 Xsim<- function(subject_sim = 100,
                 tree = NULL,
                 num_leaf = 10,
@@ -227,8 +226,7 @@ Xsim<- function(subject_sim = 100,
   return(list(X = X,
               zeta = zeta_sim,
               Sigma = Sigma,
-              tree = tree.ex,
-              beta = B_sim))
+              tree = tree.ex))
 }
 ## }}}-----------------------
 
@@ -248,8 +246,8 @@ Xsim<- function(subject_sim = 100,
 #' @param Sigma `matrix` the variance-covariance matrix must be symmetric positive semi-definite
 #' @param num_branch `integer` number of branches the associated covariates are in, default = 3
 #' @param num_cov `integer` the number of associated covariates to simulate, default = 5
-#' @param phi_min the lower bound
-#' @param phi_max the upper bound
+#' @param phi_min
+#' @param phi_max
 #' @param seed `integer` seed setup, default = 555
 #'
 #' @return A list of results:
@@ -433,7 +431,6 @@ simulate_DTM <- function(subject_sim = 100,
   return(list(
     Y = Y_list,
     X = X,
-    alpha_sim = alpha_sim,
     phi_sim = phi_sim,
     zeta_sim = zeta_sim,
     tree = tree.ex,
@@ -470,7 +467,7 @@ simulate_DMLM <- function(subject_sim = 50,
                           active_cov = 10,
                           rho = NULL,
                           Sigma = NULL,
-                          seed = 555) {
+                          seed = 111) {
 
   # Call libraries
   rlang::check_installed("MCMCpack", reason = "to use `simulate_DM()`")

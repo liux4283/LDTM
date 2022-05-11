@@ -2,16 +2,30 @@
 % Please edit documentation in R/02_likelihood.R
 \name{Score}
 \alias{Score}
-\title{Title Score function for Dirichlet and Multinomial models}
+\title{Title: Score function for Dirichlet and Multinomial models}
 \usage{
 Score(Y, X, b, model)
 }
 \arguments{
-\item{model}{}
+\item{Y}{\code{matrix} of count outcomes}
+
+\item{X}{\code{matrix} of covariates}
+
+\item{b}{\code{matrix} of dimensions p x q; where p = number of covariates
+& q = number of branches.
+Note: When q=1, we are conditioning the likelihood on that specific branch}
+
+\item{model}{\code{character} type of model to use for the Log Likelihood. Options are
+(Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+Dirichlet = "dir")}
 }
 \value{
-
+The score from the model of choice
 }
 \description{
-Title Score function for Dirichlet and Multinomial models
+Title: Score function for Dirichlet and Multinomial models
+}
+\details{
+The score function takes the derivative of the log-likelihood function.
+This can be used to maximize the log likelihood by setting the score to 0.
 }

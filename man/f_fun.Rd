@@ -2,16 +2,31 @@
 % Please edit documentation in R/02_likelihood.R
 \name{f_fun}
 \alias{f_fun}
-\title{Title Penalized log-likelihood for Dirichlet Tree Multinomial Regression}
+\title{Title: Penalized log-likelihood for Dirichlet Tree Multinomial Regression}
 \usage{
 f_fun(Ytree, X, B, model, alpha, lambda)
 }
 \arguments{
-\item{lambda}{}
+\item{Ytree}{is the tree information from the \code{Ytree} function.
+Input will be a set of n * 2 matrices, each of which represent the an interior knot
+and its children branches}
+
+\item{X}{\code{matrix} of nxp  which is the number of subjects by number of covariates}
+
+\item{B}{a list of covariate coefficients}
+
+\item{model}{\code{character} type of model to use for the Log Likelihood. Options are
+(Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+Dirichlet = "dir")}
+
+\item{alpha}{\code{numeric} the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+to investigate the covariate selection}
+
+\item{lambda}{\code{numeric}the tuning parameter}
 }
 \value{
-
+The penalized (negative) log likelihood method that estimates the parameters and selects coviariates simultaneously
 }
 \description{
-Title Penalized log-likelihood for Dirichlet Tree Multinomial Regression
+Title: Penalized log-likelihood for Dirichlet Tree Multinomial Regression
 }

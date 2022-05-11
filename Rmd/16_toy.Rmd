@@ -10,11 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 
+# Load in the simulated data given in the Dirichlet Paper
 load("data/simu_data.RData")
-source("12_Hongzhe_Dismo.R")
-source("13_Dirichlet_tree_Tao.R")
-source("14_functions_group_Tao.R")
-source("15_T_group_Tao.R")
+source("Rmd/12_Hongzhe_Dismo.R")
+source("Rmd/13_Dirichlet_tree_Tao.R")
+source("Rmd/14_functions_group_Tao.R")
+source("Rmd/15_T_group_Tao.R")
 ```
 
 ```{r}
@@ -85,7 +86,7 @@ dim(tree_X)
 ## source("12_Hongzhe_Dismo.R")
 
 ```{r}
-## inital values for betas
+## initial values for betas
 
 
 B <- matrix(runif(15 * 8, 0.1, 0.5), nrow = 15, ncol = 8)

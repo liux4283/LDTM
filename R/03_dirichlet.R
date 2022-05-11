@@ -5,10 +5,14 @@
 #' this is gradient descent methods for
 #' penalized likelihood
 #'
-#' @param Ytree
-#' @param X
-#' @param W
-#' @param model
+#' @param Ytree is the tree information from the `Ytree` function.
+#' Input will be a set of n * 2 matrices, each of which represent the an interior knot
+#' and its children branches
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param W `matrix` this will be the starting Beta used in the algorithm
+#' @param model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
 #' @param B1
 #' @param grad
 #' @param alpha
@@ -20,12 +24,12 @@
 #'
 QL_fun <- function(Ytree,
                    X,
-                   W, ## extra? the starting B
+                   W, ## the starting Beta
                    model,
-                   B1,
-                   grad,
-                   alpha,
-                   lambda,
+                   B1, # updated beta values
+                   grad, #gradient descent
+                   alpha, # gamma
+                   lambda, #
                    L){
 
   W1 <- W[, -1]
@@ -48,8 +52,6 @@ QL_fun <- function(Ytree,
 }
 
 ## }}}---------------------
-
-
 
 
 ## 3.2 lambda_fun --------------------

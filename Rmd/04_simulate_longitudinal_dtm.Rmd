@@ -55,6 +55,13 @@ Xmat <- Xsim(subject_sim = subject_sim,
 
 ```{r}
 ## we can always manually 
+<<<<<<<
+
+=======
+# Xmat$zeta <- matrix(1, nrow = 6, ncol = 10)
+dim(X0); dim(I0)
+
+>>>>>>>
 tree0 <- Xmat$tree
 phytools::plotTree(tree0, node.numbers = T)
 ```

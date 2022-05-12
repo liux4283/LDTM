@@ -1,9 +1,13 @@
 # 3.1 QL_fun {{{------------------
 
 
-#' Title  Gradient Descent Method for penalized likelihood
+#' Title:  Gradient Descent Method for penalized likelihood
 #' this is gradient descent methods for
 #' penalized likelihood
+#'
+#' @details Since the penalized likelihood function is non-smooth, we adopt the accelerated
+#'         proximal gradient method to minimize the objective function (equation 4) which will
+#'         estimate parameters and select covariates simultaneously. [Tao Wang and Hongyu Zhao (2017)]
 #'
 #' @param Ytree is the tree information from the `Ytree` function.
 #' Input will be a set of n * 2 matrices, each of which represent the an interior knot
@@ -13,28 +17,30 @@
 #' @param model `character` type of model to use for the Log Likelihood. Options are
 #'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
 #'                         Dirichlet = "dir")
-#' @param B1
-#' @param grad
-#' @param alpha
-#' @param lambda
-#' @param L
+#' @param B1 the Beta values that will be updated in the loop using the gradient descent
+#' @param grad the gradient descent
+#' @param alpha `numeric` the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+#'                       to investigate the covariate selection.
+#'                       Note: In the paper they noted this as Gamma
+#' @param lambda `numeric` the tuning parameter
+#' @param L `numeric` Lipschitz constant, instead of choosing a constant step size L.
+#'                    We can use the backtracking to choose a suitable L at each iteration.
+#'                    Note: This is noted at C in the Wang et al. paper
 #'
-#' @return
+#' @return The smallest approximated negative likelihood obtained through the algorithm
 #' @export
 #'
 QL_fun <- function(Ytree,
                    X,
-                   W, ## the starting Beta
+                   W, # the starting Beta
                    model,
                    B1, # updated beta values
-                   grad, #gradient descent
+                   grad,
                    alpha, # gamma
-                   lambda, #
+                   lambda, # tuning parameter
                    L){
 
   W1 <- W[, -1]
-  # Mon Apr 11 08:15:53 2022 ------------------------------
-  ## what is grad???
   ## equation (5)
   QL1 <- -Loglik_Dirichlet_tree(Ytree, X, W, model) +
     sum(diag(t(B1 - W1) %*% grad))
@@ -55,14 +61,22 @@ QL_fun <- function(Ytree,
 
 
 ## 3.2 lambda_fun --------------------
-#' Title Getting betas use the max(beta, 1)
+#' Title: Getting betas use the max(beta, 1)
 #'
-#' @param grad
-#' @param L
-#' @param alpha
-#' @param lambda
+#' @details This function is looking to maximize the beta matrix
 #'
-#' @return
+#' @param grad the gradient descent
+#' @param L `numeric` Lipschitz constant, instead of choosing a constant step size L.
+#'                    We can use the backtracking to choose a suitable L at each iteration.
+#'                    Note: This is noted at C in [Tao Wang and Hongyu Zhao (2017)]
+#'
+#' @param alpha `numeric` the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+#'                       to investigate the covariate selection.
+#'                       Note: In the paper they noted this as Gamma
+#'
+#' @param lambda `numeric` the tuning parameter
+#'
+#' @return The updated Beta matrix obtained from the algortihm
 #' @export
 #'
 lambda_fun <-
@@ -95,22 +109,28 @@ lambda_fun <-
 
 
 ## 3.3 lambda_raw_fun {{{---------------
-#' Title Grid methods to find which lambda minimize the loss
+#' Title: Grid methods to find which lambda minimize the loss
 #'
-#' @param grad
-#' @param L
-#' @param alpha
-#' @param lambda.raw
+#' @param grad the gradient descent
+#' @param L `numeric` Lipschitz constant, instead of choosing a constant step size L.
+#'                    We can use the backtracking to choose a suitable L at each iteration.
+#'                    Note: This is noted at C in [Tao Wang and Hongyu Zhao (2017)]
+#'
+#' @param alpha `numeric` the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+#'                       to investigate the covariate selection.
+#'                       Note: In the paper they noted this as Gamma
+#'
+#' @param lambda.raw `numeric` the intial lambda value
 #' @param fac1
 #' @param fac2
 #'
-#' @return
+#' @return This function will return the the lambda that minimizes the loss function
 #' @export
 #'
 #' @examples
 lambda_raw_fun <-
   function(grad,
-           L, ## likelihood
+           L, ## Lipschitz
            alpha,
            lambda.raw = 2,
            fac1 = 1.1,
@@ -142,22 +162,41 @@ lambda_raw_fun <-
 
 
 ## 3.4 Tree path {{{--------------------------
-
-#' Title to get the tree path and alpha for penalty likelihood
+#' Title: Tree Path
 #'
-#' @param Y
-#' @param X
-#' @param treeinfo
-#' @param alpha
-#' @param cutoff
-#' @param model
-#' @param err.conv
-#' @param iter.max
-#' @param L.init
-#' @param lambda.max
-#' @param lambda.min
+#' @details  Get the tree path and alpha for the penalized likelihood. [Tao Wang and Hongyu Zhao (2017)]
 #'
-#' @return
+#' @param Y `matrix` of count outcomes
+#' @param X `matrix` of nxp  which is the number of subjects by number of covariates
+#' @param treeinfo A list objects necessary information from the `tree`.
+#' The output has the following properties:
+#'
+#' * Nnodes: `integer` the number of nodes in the given "phylo" tree
+#' * Ntips: `integer` the number of tips/leaves in the given "phylo" tree
+#' * Tredge: `matrix` the matrix for the edges information;
+#' each row represents the two ends of the edges
+#' * TreeMat: `matrix` the matrix consists of logical values;
+#' the binary value of each taxa (by row) belongs to
+#' a given leaf or inner node (by col).
+#' @param alpha `numeric` the desired lasso parameter. In paper they used (0, 0.25, 0,5, and 1)
+#'                       to investigate the covariate selection.
+#'                       Note: In the paper they noted this as Gamma
+#'
+#' @param cutoff `numeric` the desired cutoff value for the tree path loop
+#' @param model `character` type of model to use for the Log Likelihood. Options are
+#'                         (Dirichlet Multinomial = "dirmult", Multinomial = "mult", or
+#'                         Dirichlet = "dir")
+#'
+#' @param err.conv `numeric` the desired tolerance level for convergence
+#' @param iter.max `numeric` maximum number of iterations
+#' @param L.init `numeric` Initial Lipschitz constant, instead of choosing a constant step size L.
+#'                    We can use the backtracking to choose a suitable L at each iteration. Set to NULL.
+#'                    Note: This is noted at C in [Tao Wang and Hongyu Zhao (2017)]
+#'
+#' @param lambda.max `numeric` The desired maximum lambda value; set to NULL
+#' @param lambda.min `numeric` The desired minimum lambda value; set to NULL
+#'
+#' @return This function will output the selected tree path and alpha value
 #' @export
 #'
 
@@ -236,7 +275,7 @@ T_group_path <- function(Y,
   output.path <- list()
 
   ## path iteration -------------------
-  ## trying the initate parameters
+  ## trying the initiate parameters
   # alpha = 0.5
   # cutoff = 0.8
   # err.conv = 1e-3
